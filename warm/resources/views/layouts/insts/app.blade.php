@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;500;600&family=Open+Sans&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/87fa672dc5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./css/reset.css">
-    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/main.css">
 
 </head>
 <body>
