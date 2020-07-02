@@ -9,6 +9,10 @@ use App\Inst_user;
 
 class Inst_usersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
