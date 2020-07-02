@@ -10,7 +10,7 @@
     <div class="link_box">
         <div class="link_box_l">
             <p class="link_box_heading">Manage Personal Account</p>
-            <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
+            <p class="link_box_content">Lorem Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
         </div>
         <div class="link_box_r">
            <i class="fas fa-angle-right"></i>
