@@ -18,8 +18,9 @@ class EventsController extends Controller
     }
 
     public function index()
-    {
-        //
+    {    $events=Events::all(); //foreachで表示させる
+            return view('students.index',['events=>$events']);
+        
     }
 
     /**
