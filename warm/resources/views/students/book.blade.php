@@ -25,7 +25,7 @@
 
   <div class="row">
 
-    <form action="{{url('book')}}" method="post" class="col s12">
+    <form action="{{url('books/'.$event->id)}}" method="post" class="col s12">
     {{ csrf_field() }}
       <div class="row">
         <div class="input-field col s12">
