@@ -82,7 +82,7 @@
             <img src="{{$event->img}}" class="e_img_thumbnail" alt="">
             </div>
             <div>
-            <a href="{{url('books/'.$event->id)}}"><i class="fas fa-angle-right"></i></a>
+            <a href="{{url('events/'.$event->id)}}"><i class="fas fa-angle-right"></i></a>
             </div>
             </div>
             </div>

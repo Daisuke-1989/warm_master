@@ -53,7 +53,8 @@ class EventsController extends Controller
     public function show($id)
     {
         $events =Event::find($id);
-        return view('book', ['event' => $events]);
+        return view('detail', ['event' => $events]);
+        //joinまだできていません（田中）
     }
 
     /**
