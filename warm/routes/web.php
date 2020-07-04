@@ -40,3 +40,15 @@ Route::resource('students', 'StudentsController');
 Route::resource('subjects', 'SubjectsController');
 
 Route::resource('terms', 'TermsController');
+
+Route::resource('e_sbj_maps', 'E_sbj_mapsController');
+
+Route::resource('e_r_maps', 'E_r_mapsController');
+
+Route::resource('e_l_maps', 'E_l_mapsController');
+
+Route::resource('s_n_maps', 'S_n_mapsController');
+
+Route::resource('s_l_maps', 'S_l_mapsController');
+
+Route::resource('s_sbj_maps', 'S_sbj_mapsController');
