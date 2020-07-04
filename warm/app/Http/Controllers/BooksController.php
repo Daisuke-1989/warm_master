@@ -41,7 +41,7 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         $books = new Book;
-        $books->events_id   =   $request->item_name;
+        $books->events_id   =   $request->event_id;
         $books->students_id =   Auth::user()->id;
         $books->CXL         =   0;
     
@@ -57,7 +57,8 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $events =Event::find($id);
+        return view('book', ['event' => $events]);
     }
 
     /**
