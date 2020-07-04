@@ -25,7 +25,7 @@
 
   <div class="row">
 
-    <form action="{{url('books/'.$event->id)}}" method="post" class="col s12">
+    <form action="{{url('books')}}" method="post" class="col s12">
     {{ csrf_field() }}
       <div class="row">
         <div class="input-field col s12">
@@ -45,8 +45,8 @@
           <input type="email" name="email" value="{{ユーザーemail}}" class="validate">
         </div>
       </div>
-      <input type="hidden" name="e_id" value="{{大学id}}">
-      <input type="hidden" name="st_id" value="{{ユーザーid}}">
+      <input type="hidden" name="event_id" value="{{$event->id}">
+      
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
 
     </form>
