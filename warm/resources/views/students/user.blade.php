@@ -1,17 +1,17 @@
-
-
 @extends('layouts.students.app')
 @section('content')
 
 
 
 <div class="inner">
-    <h1 class="greet">{{Auth::lastname()}}'s Page</h1>
+
+    <h1 class="greet">{{--Auth::lastname()--}}'s Page</h1>
 </div>
 
 <div class="container">
 
     <div class="heading">Your upcoming events</div>
+
 
     @foreach($books as $book)
         <div class="rsv_box mb60">
@@ -26,12 +26,14 @@
         <a href="{{url('books/'.$event->id)}}"><i class="fas fa-chevron-circle-right"></i>Details</a>
     <a href="{{url('querys/create/'.$event->id)}}"><i class="fas fa-chevron-circle-right"></i>Ask questions</a>
         <a href="{{url('books/'.$event->id)}}"><i class="fas fa-chevron-circle-right"></i>Cancel</a>
+
         </div>
         <div class="rsv_img">
-        <img src="{{$event->img}}" alt="" class="rsv_img_size">
+            <img src="{{--$event->img--}}" alt="" class="rsv_img_size">
+        <div>
     </div>
-        </div>
-        @endforeach
+    
+    {{--@endforeach--}}
 
 </div>
 

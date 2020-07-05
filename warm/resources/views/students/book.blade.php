@@ -46,7 +46,6 @@
         </div>
       </div>
       <input type="hidden" name="event_id" value="{{$event->id}">
-      
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
 
     </form>
