@@ -6,10 +6,11 @@
 <h1 class="heading">Create Event</h1>
 
 <div class="row">
-    <form action="i_e_insert.php" method="post" enctype="multipart/form-data" class="col s12">
+    <form action="/events" method="post" enctype="multipart/form-data" class="col s12">
+    @csrf
         <div class="row">
             <div class="input-field col s12">
-                <input type="text" name="e_title" class="validate">
+                <input type="text" name="title" class="validate">
                 <label for="e_title">Event Title</label>
             </div>
         </div>
@@ -31,33 +32,39 @@
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <textarea name="e_detail" id="textarea1" class="materialize-textarea"></textarea>
+                <textarea name="detail" id="textarea1" class="materialize-textarea"></textarea>
                 <label for="textarea1">Event details</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select name="lvl[]" id="" multiple>
+                <select name="lvls[]" id="" multiple>
                     <option value="" disabled selected>Choose level(s)</option>
-                    <?= $view ?>
+                    @foreach({{ $levels as $level }})
+                        <option value="{{ $level->id }}">{{ $level->level }}</option>
+                    @endforeach
                  </select>
                  <label for="lvl">Target Study Level</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select name="sbj[]" id="" multiple>
+                <select name="sbjs[]" id="" multiple>
                     <option value="" disabled selected>Choose subject(s)</option>
-                    <?= $view2?>
+                    @foreach({{ $subjects as $subject }})
+                        <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
+                    @endforeach
                 </select>
                 <label for="sbj">Target Subject Areas</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s12">
-                <select name="rgn[]" id="" multiple>Target Region/select>
+                <select name="rgns[]" id="" multiple>Target Region/select>
                     <option value="" disabled selected>Choose region(s)</option>
-                    <?= $view3?>
+                    @foreach({{ $nations->region as $region }})
+                        <option value="{{ $region->rgn_id }}">{{ $region->region }}</option>
+                    @endforeach
                  </select>
                  <label for="rgn">Target Regions</label>
             </div>
@@ -74,8 +81,8 @@
        <!-- <div class="row">
            <input type="file" name="upfile">
        </div> -->
-        <input type="hidden" name="inst_id" value="<?=$_SESSION["i_inst_id"]?>">
-        <input type="hidden" name="iuser_id" value="<?=$_SESSION["iuser_id"]?>">
+        <input type="hidden" name="inst_id" value="{{ $inst->id }}">
+        <input type="hidden" name="user_id" value="{{ $inst_user->id}}">
         <div>
             <input type="submit" value="Submit" class="btn-submit_i btn-filter">
         </div>

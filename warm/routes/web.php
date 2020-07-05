@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('inistUserRegister', 'Auth\RegisterController@showInstUserRegistrationForm');
+
+Route::post('inistUserRegister', 'Auth\RegisterController@instUserRegister');
+
+Route::get('studentRegister', 'Auth\RegisterController@showStudentRegistrationForm');
+
+Route::post('studentRegister', 'Auth\RegisterController@studentRegister');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -40,3 +48,15 @@ Route::resource('students', 'StudentsController');
 Route::resource('subjects', 'SubjectsController');
 
 Route::resource('terms', 'TermsController');
+
+Route::resource('e_sbj_maps', 'E_sbj_mapsController');
+
+Route::resource('e_r_maps', 'E_r_mapsController');
+
+Route::resource('e_l_maps', 'E_l_mapsController');
+
+Route::resource('s_n_maps', 'S_n_mapsController');
+
+Route::resource('s_l_maps', 'S_l_mapsController');
+
+Route::resource('s_sbj_maps', 'S_sbj_mapsController');
