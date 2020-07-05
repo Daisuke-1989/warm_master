@@ -73,7 +73,7 @@
             <p class="e_inst">{{--$event->inst_name(大学名)--}}, {{--$event->country(大学の国)--}}</p>
             <p class="e_title">{{--$event->title--}}</p>
             <div class="flex">
-            <span class="e_info">Level: {--{レベル(levelsテーブル)--}}</span>
+            <span class="e_info">Level: {{--$event->level(レベル)--}}</span>
             <span class="e_info">Suitable for students in {{--$event->region(地域)--}} region.</span>
             </div>
             </div>
