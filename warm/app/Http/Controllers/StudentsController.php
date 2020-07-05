@@ -320,7 +320,7 @@ class StudentsController extends Controller
                 // GROUP BY sbj.sbj";
 
         // コンペティターアナリシス
-        $sub_query = DB::raw('SELECT students.id FROM stuents
+        $sub = DB::raw('SELECT students.id FROM stuents
         JOIN books ON students.id = books.students_id
         JOIN events ON books.events_id = events.id 
         WHERE events.insts_id = {{ $id }}');
