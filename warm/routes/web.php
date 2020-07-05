@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('inistUserRegister', 'Auth\RegisterController@showInstUserRegistrationForm');
+
+Route::post('inistUserRegister', 'Auth\RegisterController@instUserRegister');
+
+Route::get('studentRegister', 'Auth\RegisterController@showStudentRegistrationForm');
+
+Route::post('studentRegister', 'Auth\RegisterController@studentRegister');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
