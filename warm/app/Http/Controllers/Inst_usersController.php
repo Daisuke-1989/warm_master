@@ -18,8 +18,12 @@ class Inst_usersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        // // sessionに値を保存する
+        // $firstname = Auth::user()->firstname->get();
+        // $request->session()->put('name', $firstname);
+
         //Authからidをゲットして大学ユーザーの名前を表示
         $id = Auth::user()->id->get();
         $inst_user = User::find($id);
@@ -100,8 +104,9 @@ class Inst_usersController extends Controller
             'id' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
-            'pw' => 'required|min:1|max:6',
-            'published' => 'required|date_format:"Y-m-d H:i:s"',
+            'password' => 'required',
+            'jobtitle' => 'required',
+            'department' => 'required'
         ]);
     
         //バリデーション:エラー 
@@ -112,14 +117,20 @@ class Inst_usersController extends Controller
         }
         //以下に登録処理を記述（Eloquentモデル）
         // Eloquent モデル
-        $books = Book::where('user_id', Auth::user()->id)
-            ->find($request->id);
-        $books->item_name = $request->item_name;
-        $books->item_number = $request->item_number;
-        $books->item_amount = $request->item_amount;
-        $books->published = $request->published;
-        $books->save(); 
-        return redirect('/');
+        $user = User::find($request->id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->password = $request->password;
+        $user->save(); 
+       
+
+        $inst_user = Inst_user::find($request->id);
+        $inst_user->j_title = $request->jobtitle;
+        $inst_user->dept = $request->department;
+        $inst_user->save(); 
+
+        return redirect('/inst_users');
     }
 
     /**

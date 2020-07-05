@@ -6,7 +6,7 @@
     Hello, {{ $inst_user->firstname }}！
 </p>
 
-<a href="i_user_account.php?id={{ $inst_user->id }}">
+<a href="/inst_users/{{ $inst_user->id }}">
     <div class="link_box">
         <div class="link_box_l">
             <p class="link_box_heading">Manage Personal Account</p>
@@ -22,27 +22,27 @@
 
 <div class="link_box_flex">
     <div class="link_box_inner">
-        <a href="i_e_entry.php">
+        <a href="/events/create">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Create Event</p>
                     <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
                 </div>
                 <div class="link_box_r">
-                    <a href="i_e_entry.php"><i class="fas fa-angle-right"></i></a>
+                    <a href="/events/create"><i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </a>
         </div>
     <div class="link_box_inner">
-        <a href="i_e_list.php">
+        <a href="/events/inst_user?id={{ $inst->id }}">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Manage Event</p>
                     <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
                 </div>
                 <div class="link_box_r">
-                    <a href="i_e_list.php"><i class="fas fa-angle-right"></i></a>
+                    <a href="/events/inst_user?id={{ $inst->id }}"><i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </a>
