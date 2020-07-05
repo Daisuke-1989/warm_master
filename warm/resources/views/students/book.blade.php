@@ -15,7 +15,7 @@
         <span class="event-time">{{$event->start_time}} - </span> 
         <span class="event-time">{{$event->end_time}}</span> 
       </div>
-      <p class="e_inst">{{大学名}}</p>
+      <p class="e_inst">{{$event->inst_name(大学名)}}</p>
       <p class="e_title">{{$event->title}}</p>
     </div>
     <div class="rsv_img">

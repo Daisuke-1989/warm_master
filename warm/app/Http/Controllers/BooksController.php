@@ -57,7 +57,9 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        $events =Event::find($id);
+        $events =Event::join('insts','events.insts_id','=','insts.id')
+                        ->where('id','=',$id);
+
         return view('book', ['event' => $events]);
     }
 
