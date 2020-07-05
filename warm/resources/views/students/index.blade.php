@@ -74,7 +74,7 @@
             <p class="e_title">{{--$event->title--}}</p>
             <div class="flex">
             <span class="e_info">Level: {--{レベル(levelsテーブル)--}}</span>
-            <span class="e_info">Suitable for students in {{--地域(nationsテーブル)--}} region.</span>
+            <span class="e_info">Suitable for students in {{--$event->region(地域)--}} region.</span>
             </div>
             </div>
             <div class="cont_r">

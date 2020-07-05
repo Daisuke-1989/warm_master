@@ -34,18 +34,19 @@ class EventsController extends Controller
     {   
         $user_id    =   Auth::user()->id->get();
         $student    =   Student::where('id', $user_id)->get();
-        $event     =   Event::join('insts','insts.id','=','events.insts_id')
+        $nation     =   Nation::all();
+        $event      =   Event::join('insts','insts.id','=','events.insts_id')
                         ->join('nations','nations.id','=','insts.nations_id')
-                        ->join('levels','levels.id','=','');
-
-        $nation    =   Nation::all();
+                        ->join('e_l_maps','e_l_maps.events_id','=','events.id',)
+                        ->join('levels','levels_id','=','e_l_maps.levels_id')
+                        ->get();
+        
         
         return view('students.index',[
-                    'student'=>$student,
-                        'event'=>$event,
-                        'nation'=>$nation
+                    'student'   =>$student,
+                    'event'     =>$event,
+                    'nation'    =>$nation
                         ]);
-       
     }
 
     /**
