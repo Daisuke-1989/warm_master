@@ -26,7 +26,7 @@
           </div>
         </div>
           <div class="e_infoLarger">Level: <span>{{--$event->level(レベル)--}}</span></div> 
-          <div class="e_infoLarger">Subject areas: <span>{{--サブジェクト--}}</span></div>
+          <div class="e_infoLarger">Subject areas: <span>{{--$event->subject(サブジェクト)--}}</span></div>
           <div class="e_infoLarger">Suitable for students from <span>{{--$event->region(地域)--}}</span> region.</div>
 
     <a href="{{--url('books/'.$event->id)--}}" class="e_book">Book</a>
