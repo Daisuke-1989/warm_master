@@ -12,15 +12,27 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
-    {    $events=Events::all(); //foreachで表示させる
-            return view('students.index',['events=>$events']);
+    {   
+        $user_id    =   Auth::user()->id->get();
+        $student    =   Student::where('id', $user_id)->get();
+        $event     =   Event::join('insts','insts.id','=','events.insts_id')
+                        ->join('nations','nations.id','=','insts.nations_id')
+                        ->join('levels','levels.id','=','');
+
+        $nation    =   Nation::all();
         
+        return view('students.index',[
+                    'student'=>$student,
+                        'event'=>$event,
+                        'nation'=>$nation
+                        ]);
+       
     }
 
     /**
@@ -52,9 +64,11 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $events =Event::find($id);
-        return view('detail', ['event' => $events]);
-        //joinまだできていません（田中）
+        // $events =Event::find($id);
+        return view('detail'
+        // , ['event' => $events]
+    );
+        
     }
 
     /**
