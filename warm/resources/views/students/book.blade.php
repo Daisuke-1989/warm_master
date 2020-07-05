@@ -30,19 +30,19 @@
       <div class="row">
         <div class="input-field col s12">
           <label>First Name</label>
-          <input type="text" name="firstname" value="{{ユーザー名前}}" class="validate">
+          <p class="validate">{{ユーザー名前}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <label>Last Name</label>
-          <input type="text" name="lastname" value="{{ユーザー名前}}" class="validate">
+          <p class="validate">{{ユーザー名前}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <label>Email</label>
-          <input type="email" name="email" value="{{ユーザーemail}}" class="validate">
+          <p class="validate">{{ユーザーemail}}</p>
         </div>
       </div>
       <input type="hidden" name="event_id" value="{{$event->id}">

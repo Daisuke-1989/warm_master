@@ -25,15 +25,28 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
-    {    $events=Events::all(); //foreachで表示させる
-            return view('students.index',['events=>$events']);
+    {   
+        $user_id    =   Auth::user()->id->get();
+        $student    =   Student::where('id', $user_id)->get();
+        $nation     =   Nation::all();
+        $event      =   Event::join('insts','insts.id','=','events.insts_id')
+                        ->join('nations','nations.id','=','insts.nations_id')
+                        ->join('e_l_maps','e_l_maps.events_id','=','events.id',)
+                        ->join('levels','levels_id','=','e_l_maps.levels_id')
+                        ->get();
         
+        
+        return view('students.index',[
+                    'student'   =>$student,
+                    'event'     =>$event,
+                    'nation'    =>$nation
+                    ]);
     }
 
     /**
@@ -156,9 +169,18 @@ class EventsController extends Controller
      */
     public function show($id)
     {
-        $events =Event::find($id);
+        
+
+        $event  =Event::join('insts','insts.id','=','events.insts_id')
+            ->join('nations','nations.id','=','insts.nations_id')
+            ->join('e_l_maps','e_l_maps.events_id','=','events.id',)
+            ->join('levels','levels_id','=','e_l_maps.levels_id')
+            // subjectが取得できていないです。
+            ->where('id','=',$id)
+            ->get();
+
         return view('detail', ['event' => $events]);
-        //joinまだできていません（田中）
+        
     }
 
     /**
