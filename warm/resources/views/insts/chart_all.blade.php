@@ -6,7 +6,7 @@
     <h1 class="heading">Students Statistics</h1>
 
     <div class="mb60">
-    <p class="sub_heading"><?= $r_inst["inst_name"]?></p>
+    <p class="sub_heading">{{ $inst->inst_name }}</p>
     </div>
 
     <div class="mb80">
@@ -20,7 +20,25 @@
                             <th>Country</th>
                             <th>Number</th>
                         </tr>
-                            <?=$view?>
+                            @if(!isset($cntrys[0]))
+                                <tr>
+                                    <td>none</td>
+                                    <td>none</td>
+                                </tr>
+                            @else
+
+                                @foreach($cntrys as $cntry)
+
+        extract($r);
+        $json[] = $r["stucntry"];
+        $json2[]=(int)$r["total"];
+                                    <tr>
+                                        <td>{{ $cntry->country}}</td>
+                                        <td>{{ $cntry->total}}</td>
+                                    </tr>
+                                @endforeach
+
+                            @endif
                     </table>
                 </div>
                 <div class="pie-chart-container chart">
@@ -39,7 +57,25 @@
                             <th>Destination</th>
                             <th>Number</th>
                         </tr>
-                            <?=$view_ic?>
+                        @if(!isset($dtns[0]))
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                        @else
+
+                            @foreach($dtns as $dtn)
+
+                            extract($r);
+        $json3[] = $r["icntry"];
+        $json4[] = $r["total"];
+                                <tr>
+                                    <td>{{ $dtn->country}}</td>
+                                    <td>{{ $dtn->total}}</td>
+                                </tr>
+                            @endforeach
+
+                        @endif
                     </table>
                 </div>
                 <div class="pie-chart-container chart">
@@ -57,7 +93,29 @@
                             <th>Level</th>
                             <th>Number</th>
                         </tr>
-                            <?=$view_l?>
+
+                        @if(!isset($lvls[0]))
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                        @else
+
+                            @foreach($lvls as $lvl)
+
+                            extract($r);
+        $json5[] = $r["lvl"];
+        $json6[] = $r["total"];
+
+                                <tr>
+                                    <td>{{ $lvl->level }}</td>
+                                    <td>{{ $lvl->total }}</td>
+                                </tr>
+
+                            @endforeach
+
+                        @endif
+
                     </table>
                 </div>
                 <div class="pie-chart-container chart">
@@ -75,7 +133,30 @@
                                 <th>Sbject area</th>
                                 <th>Number</th>
                             </tr>
-                                <?=$view_s?>
+
+                            @if(!isset($sbjs[0]))
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+
+                            @else
+
+                                @foreach($sbjs as $sbj)
+
+                                extract($r);
+        $json7[] = $r["sbj"];
+        $json8[] = $r["total"];
+
+                                    <tr>
+                                        <td>{{ $sbj->subject }}</td>
+                                        <td>{{ $sbj->total }}</td>
+                                    </tr>
+
+                                @endforeach
+
+                            @endif
+                                
                         </table>
                 </div>
                 <div class="pie-chart-container1 chart">
@@ -95,7 +176,21 @@
                             <tr>
                                 <th>University</th>
                             </tr>
-                                <?=$view_c?>
+
+                            @if(!isset($anlyss[0]))
+
+                                <tr>
+                                    <td>none</td>
+                                </tr>
+
+                            @else
+
+                                @foreach($anlyss as $anlys)
+                                <tr>
+                                    <td>{{ $anlys->inst_name }}</td>
+                                </tr>
+
+                                @endforeach
                         </table>
                     <!-- </div><div class="pie-chart-container1 chart">
                         <canvas id="myChart4" width="800px" height="800px"></canvas>

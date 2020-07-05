@@ -39,7 +39,7 @@
     </table>
     </div>
     
-    <a href="i_user_updateview.php?id=<?= $r["iuser_id"]?>" class="btn-submit_i btn-filter">Edit</a>
+    <a href="/inst_users/{{ $user->id }}/edit" class="btn-submit_i btn-filter">Edit</a>
 
 </div>
 @endsection('content')
