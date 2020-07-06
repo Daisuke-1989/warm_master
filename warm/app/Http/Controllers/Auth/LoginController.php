@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\User;
+use App\Inst;
+use App\Event;
+use App\Inst_user;
+use App\Student;
 use App\Http\Controllers\Controller;
+use App\vender\OtherAuthenticatesUsers;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
@@ -19,6 +25,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
+    use OtherAuthenticatesUsers;
 
     /**
      * Where to redirect users after login.
@@ -26,6 +33,19 @@ class LoginController extends Controller
      * @var string
      */
     protected $redirectTo = '/home';
+
+    public function redirectTo(){
+        $type = $this->guard()->user()->type;
+        if($type === 1){
+            return '/home';//viewsでreturnはできない。errorとなる。
+        }
+        if($type === 2){
+            return '/insts';
+        }
+        if($type === 3){
+            return '/students';
+        }
+    }
 
     /**
      * Create a new controller instance.

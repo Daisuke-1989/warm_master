@@ -2,6 +2,8 @@
 
 namespace App\vender;
 
+use App\Event;
+use App\Inst;
 use App\Inst_user;
 use App\Student;
 use Illuminate\Http\Request;
@@ -46,7 +48,7 @@ trait OtherRegistersUsers
 
         $this->guard()->login($user);
 
-        return $this->instUserRegistered($request, $user)
+        return $this->instUserRegistered($user)
                         ?: redirect($this->redirectPath());
     }
 
@@ -83,10 +85,19 @@ trait OtherRegistersUsers
      * @param  mixed  $user
      * @return mixed
      */
-    protected function instUserRegistered(Request $request, $user)
+    protected function instUserRegistered($user)
     {
         //
-        return view('insts.index', compact('inst_user','inst'));
+        $user = auth()->user();
+        $id = $user->id;
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $id)
+            ->select('insts.inst_name', 'insts.id')
+            ->first();
+        $inst_id = $inst->id;
+        $events = Event::where('insts_id', $inst_id)->get();
+
+        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
     }
 
     protected function studentRegistered(Request $request, $user)
