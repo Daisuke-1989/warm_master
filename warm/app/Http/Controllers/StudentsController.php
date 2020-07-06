@@ -354,7 +354,19 @@ class StudentsController extends Controller
 
     public function index()
     {
-        //
+        $user_id    =   Auth::user()->id->get();
+        $student    =   Student::where('id', $user_id)->get();
+        $student_id = $student->id;
+        
+        $book      =   Book::join('events','book.events_id','=','events.id')
+                        ->join('insts','events.insts_id','=','insts.id')
+                        ->where('id','=',$student_id)
+                        ->get();
+        
+        
+        return view('students.user',[
+                    'book'=>$book
+                    ]);
     }
 
     /**
