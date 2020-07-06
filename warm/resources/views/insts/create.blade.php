@@ -40,7 +40,7 @@
             <div class="input-field col s12">
                 <select name="lvls[]" id="" multiple>
                     <option value="" disabled selected>Choose level(s)</option>
-                    @foreach({{ $levels as $level }})
+                    @foreach( $levels as $level )
                         <option value="{{ $level->id }}">{{ $level->level }}</option>
                     @endforeach
                  </select>
@@ -51,7 +51,7 @@
             <div class="input-field col s12">
                 <select name="sbjs[]" id="" multiple>
                     <option value="" disabled selected>Choose subject(s)</option>
-                    @foreach({{ $subjects as $subject }})
+                    @foreach( $subjects as $subject )
                         <option value="{{ $subject->id }}">{{ $subject->subject }}</option>
                     @endforeach
                 </select>
@@ -62,7 +62,7 @@
             <div class="input-field col s12">
                 <select name="rgns[]" id="" multiple>Target Region/select>
                     <option value="" disabled selected>Choose region(s)</option>
-                    @foreach({{ $nations->region as $region }})
+                    @foreach( $regions as $region )
                         <option value="{{ $region->rgn_id }}">{{ $region->region }}</option>
                     @endforeach
                  </select>
@@ -82,7 +82,7 @@
            <input type="file" name="upfile">
        </div> -->
         <input type="hidden" name="inst_id" value="{{ $inst->id }}">
-        <input type="hidden" name="user_id" value="{{ $inst_user->id}}">
+        <input type="hidden" name="user_id" value="{{ $user->id}}">
         <div>
             <input type="submit" value="Submit" class="btn-submit_i btn-filter">
         </div>

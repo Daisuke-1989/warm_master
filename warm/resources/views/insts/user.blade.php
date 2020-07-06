@@ -30,11 +30,7 @@
         </tr>
         <tr>
             <td class="text-right">Institution</td>
-            <td><?=$r["inst_name"]?></td>
-        </tr>
-        <tr>
-            <td class="text-right">Country</td>
-            <td><?=$r["icntry"]?></td>
+            <td>{{ $inst->inst_name }}</td>
         </tr>
     </table>
     </div>

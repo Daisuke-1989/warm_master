@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use App\Inst;
 use App\Inst_user;
 use App\Level;
@@ -15,6 +16,7 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
+use Validator;
 
 
 class EventsController extends Controller
@@ -58,8 +60,17 @@ class EventsController extends Controller
     public function create()
     {
         //イベント作成時に、大学と大学ユーザーのIDをstoreに渡す
-        $inst_user = Auth::user()->id->get();
-        $inst = Inst::where('id', $inst_user['inst_id']);
+        // $user = auth()->user();
+        // $id = $user->id;
+
+        $user = Auth::user();
+        
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $user->id)
+            ->first();
+        // $inst_id = Inst_user::where('id', $id)->get('inst_id');
+        // // $inst_id = $inst_user['inst_id'];
+        // $inst = Inst::where('id', $inst_id)->get();
 
         //level: フォームのセレクトボックスのvalue
         $levels = Level::all();
@@ -68,9 +79,11 @@ class EventsController extends Controller
         $subjects = Subject::all();
 
         //region: フォームのセレクトボックスのvalue
+        // distinctを使う
         $regions = Nation::all();
 
-        return view('events.create', ['inst_user'=>$inst_user, 'inst'=> $inst, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions]);
+        return view('insts.create', ['user'=>$user, 'inst'=> $inst, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions]);
+
     }
 
     /**
@@ -97,9 +110,9 @@ class EventsController extends Controller
             'title' => 'required',
             'inst_id' => 'required',
             'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'dtls' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'detail' => 'required',
             'img' => 'required',
             'user_id' => 'required',
             'lvls' => 'required',
@@ -170,6 +183,7 @@ class EventsController extends Controller
      */
     public function show($id)
     {
+
         $event  =Event::join('insts','events.insts_id','=','insts.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')
                         ->join('nation','e_r_maps.regions_id','rgn_id')
@@ -180,6 +194,7 @@ class EventsController extends Controller
                         ->where('id','=',$id)
                         ->get();
                         return view('detail', ['event' => $events]);
+
     }
 
     /**
@@ -247,7 +262,7 @@ class EventsController extends Controller
         return redirect('/events/{{ $event->id }}/edit');
     }
 
-    public function inst_index(Request $request){
+    public function inst_index($id){
 
         // // session値が取れている場合
         // $inst_id = $request->session()->get('inst_id');
@@ -255,12 +270,18 @@ class EventsController extends Controller
         // $events = Event::where('insts_id', $inst_id)->get();
 
         // session値が取れていない場合
-        $user_id = Auth::user()->id->get();
-        $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
-        $inst = Inst::where('id', $inst_id)->get();
-        $events = Event::where("insts_id", $inst_id)->get();
+        // $user_id = Auth::user()->id->get();
+        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
+        // $inst = Inst::where('id', $inst_id)->get();
 
-        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+        // $user = Auth::user();
+        
+        // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
+        //     ->where('events.insts_id', $id)
+        //     ->first();
+        // $events = Event::where('id', $id)->get();
+
+        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
 
     }
 
