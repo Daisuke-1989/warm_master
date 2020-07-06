@@ -38,9 +38,6 @@ class EventsController extends Controller
     {       
             $user = auth()->user();
             $id = $user->id;
-            // $user_id    =   Auth::user()->id->get();
-            // $student    =   Student::where('id', $id)->get();
-            // $student    =   Student::find($id);
             $nations     =   Nation::all();
             $levels     =    Level::all();
             $events      =   Event::join('insts','events.insts_id','=','insts.id')
@@ -53,7 +50,6 @@ class EventsController extends Controller
             
             return view('students.index',[
                         'user'      =>$user,
-                        // 'student'   =>$student,
                         'events'     =>$events,
                         'nations'    =>$nations,
                         'levels'    =>$levels
