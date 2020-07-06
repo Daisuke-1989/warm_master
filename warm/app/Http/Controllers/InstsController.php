@@ -14,6 +14,7 @@ use App\Nation;
 use App\Book;
 use App\Query;
 use App\Term;
+use Validator;
 
 class InstsController extends Controller
 {
@@ -69,6 +70,32 @@ class InstsController extends Controller
     public function create()
     {
         //
+        //イベント作成時に、大学と大学ユーザーのIDをstoreに渡す
+        // $user = auth()->user();
+        // $id = $user->id;
+
+        $user = Auth::user();
+        
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $user->id)
+            ->select('insts.id')
+            ->first();
+        // $inst_id = Inst_user::where('id', $id)->get('inst_id');
+        // // $inst_id = $inst_user['inst_id'];
+        // $inst = Inst::where('id', $inst_id)->get();
+
+        //level: フォームのセレクトボックスのvalue
+        $levels = Level::all();
+
+        //subject: フォームのセレクトボックスのvalue
+        $subjects = Subject::all();
+
+        //region: フォームのセレクトボックスのvalue
+        // distinctを使う
+        $regions = Nation::all();
+
+        return view('insts.create', ['user'=>$user, 'inst'=> $inst, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions]);
+
     }
 
     /**
@@ -80,6 +107,93 @@ class InstsController extends Controller
     public function store(Request $request)
     {
         //
+        $file = $request->file('img');
+        // ファイルが空かチェック
+        if(!empty($file)){
+            // ファイル名を取得
+            $filename = $file->getClientOriginalName();
+            $move = $file->store('../upload/'.$filename); //public/upload....
+            
+        }else{
+            $filename = "";
+        }
+
+        // バリデーション
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'inst_id' => 'required',
+            'date' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'detail' => 'required',
+            'img' => 'required',
+            'user_id' => 'required',
+            'lvls' => 'required',
+            'sbjs' => 'required',
+            'rgns' => 'required'
+        ]);
+    
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+            return redirect('/events/ceate')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        //イベント情報を登録
+        $event = new Event();
+
+        $event->title = request('title');
+        $event->insts_id = request('inst_id');
+        $date1 = request('date');
+        $date2 = strtotime($date1);
+        $date3 = date('Y-m-d', $date2);
+        $event->date = $date3;
+        $starttime1 = request('starttime');
+        $starttime2 = strtotime('$starttime1');
+        $starttime3 = date('H:i:s', $starttime2);
+        $event->start_time = $starttime3;
+        $endtime1 = request('endtime');
+        $starttime2 = strtotime('$endtime1');
+        $endtime3 = date('H:i:s', $endtime2);
+        $event->end_time = $endtime3;
+        $event->dtls = request('detail');
+        $event->capacity = 1;
+        $event->img = $filename;
+        $event->inst_users_id = request('user_id');
+
+        $event->save();
+
+        // 上記で作成されたイベントのidを取得
+        $event_id = $event->id;
+
+        //複数のレベル情報とイベントIDを、中間テーブルにループで登録
+        foreach($request->lvls as $lvl){
+            $level = new E_l_map();
+            $level->level_id = $lvl;
+            $level->events_id = $event_id;
+
+            $level->save();
+        }
+        
+        //複数の科目情報とイベントIDを中間テーブルにループで登録
+        foreach($request->sbjs as $sbj){
+            $subject = new E_sbj_map();
+            $subject->sbjects_id = $sbj;
+            $subject->events_id = $event_id;
+
+            $subject->save();
+        }
+
+        //複数のリージョン情報とイベントIDを中間テーブルにループで登録
+        foreach($request->rgns as $rgn){
+            $region = new E_r_map();
+            $region->regions_id = $rgn;
+            $region->events_id = $event_id;
+
+            $region->save();
+        }
+
+        return redirect('/inst_users');
     }
 
     /**
@@ -90,7 +204,7 @@ class InstsController extends Controller
      */
     public function show($id)
     {
-        $events = Event::find($id)->first();
+        $events = Event::find($id);
         // $events_id = $id;
 
         // イベントの対象となるレベルの抽出
