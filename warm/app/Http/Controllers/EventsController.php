@@ -9,6 +9,7 @@ use App\Inst;
 use App\Inst_user;
 use App\Level;
 use App\Subject;
+use App\Student;
 use App\Nation;
 use App\Event;
 use App\E_l_map;
@@ -33,21 +34,30 @@ class EventsController extends Controller
     // }
 
     public function index()
-{       $user_id    =   Auth::user()->id->get();
-        $student    =   Student::where('id', $user_id)->get();
-        $nation     =   Nation::all();
-        $event      =   Event::join('insts','events.insts_id','=','insts.id')
+{       
+        $user = auth()->user();
+        $id = $user->id;
+        // $user_id    =   Auth::user()->id->get();
+        // $student    =   Student::where('id', $id)->get();
+        // $student    =   Student::find($id);
+        $nations     =   Nation::all();
+        $levels     =    Level::all();
+
+        $events      =   Event::join('insts','events.insts_id','=','insts.id')
+                        // ->join('nations', 'insts.nations_id', '=', 'nations.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')
-                        ->join('nation','e_r_maps.regions_id','rgn_id')
-                        ->join('e_l_maps','events.id','=','e_l_maps.events_id',)
-                        ->join('levels','e_l_maps.levels_id','=','levels_id')
+                        ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                        ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                        ->join('levels','e_l_maps.levels_id','=','levels.id')
+                        ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
                         ->get();
         
-        
         return view('students.index',[
-                    'student'   =>$student,
-                    'event'     =>$event,
-                    'nation'    =>$nation
+                    'user'      =>$user,
+                    // 'student'   =>$student,
+                    'events'     =>$events,
+                    'nations'    =>$nations,
+                    'levels'    =>$levels
                     ]);
         
     }
@@ -187,7 +197,7 @@ class EventsController extends Controller
         $event  =Event::join('insts','events.insts_id','=','insts.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')
                         ->join('nation','e_r_maps.regions_id','rgn_id')
-                        ->join('e_l_maps','events.id','=','e_l_maps.events_id',)
+                        ->join('e_l_maps','events.id','=','e_l_maps.events_id')
                         ->join('levels','e_l_maps.levels_id','=','levels.id')
                         ->join('e_sbj_maps','events_id','=','e_sbj_maps.events_id')
                         ->join('subjects','e_sbj_maps.subjects_id','=','subject.id')
