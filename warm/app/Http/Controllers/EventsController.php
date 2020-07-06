@@ -31,8 +31,8 @@ class EventsController extends Controller
     // }
 
     public function index()
-{       $user_id    =   Auth::user()->id->get();
-        $student    =   Student::where('id', $user_id)->get();
+{       //$user_id    =   Auth::user()->id->get();
+        $student    =   Student::where('id',1);
         $nation     =   Nation::all();
         $event      =   Event::join('insts','events.insts_id','=','insts.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')

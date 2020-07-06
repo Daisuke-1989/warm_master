@@ -32,9 +32,9 @@
                 <div class="input-field col s12">
                 <select name="dest" id="selectDestination">
                     <option value="" disabled selected>Choose destination</option>
-                       {{-- @foreach ($nations as $nation) --}}
-                        <option value="{{--$nation->country--}}">{{--$nation->country--}}</option>
-                       {{-- @endforeach--}}
+                       {{ @foreach ($nations as $nation) }}
+                        <option value="{{$nation->country}}">{{$nation->country}}</option>
+                       {{@endforeach}}
                 </select>
                 <label for="dest">Destination</label>
                 </div>
@@ -44,9 +44,9 @@
                 <div class="input-field col s12">
                     <select name="rgn" id="selectArea">
                         <option value="" disabled selected>Choose your region</option>
-                            {{--@foreach ($nations as $nation)--}}
-                            <option value="{{--$nation->region--}}">{{--$nation->region--}}</option> 
-                            {{--@endforeach--}}
+                            {{@foreach ($nations as $nation)}}
+                            <option value="{{$nation->region}}">{{$nation->region}}</option> 
+                            {{@endforeach}}
                     </select>
                     <label for="rgn">Where you are</label>
                 </div>
@@ -55,9 +55,9 @@
                 <div class="input-field col s12">
                     <select name="lvl" id="selectLevel">
                     <option value="" disabled selected class="choose">Choose level of study</option>
-                            {{--@foreach ($levels as $level)--}}
-                            <option value="{{--$level->level--}}">{{--$level->level--}}</option> 
-                            {{--@endforeach--}}
+                            {{@foreach ($levels as $level)}}
+                            <option value="{{$level->level}}">{{$level->level}}</option> 
+                            {{@endforeach}}
                     </select>
                     <label for="lvl">Level of study</label>
                 </div>
@@ -66,27 +66,27 @@
         </form>
     </div>
 
-            {{--@foreach ($events as $event)--}}
+            {{@foreach ($events as $event)}}
             <div class="e_list">
             <div class="cont_l">
-            <p class="e_date">{{--$event->date--}}</p>
-            <p class="e_inst">{{--$event->inst_name(大学名)--}}, {{--$event->country(大学の国)--}}</p>
+            <p class="e_date">{{$event->date}}</p>
+            <p class="e_inst">{{$event->inst_name}}, {{$event->country}}</p>
             <p class="e_title">{{--$event->title--}}</p>
             <div class="flex">
-            <span class="e_info">Level: {{--$event->level(レベル)--}}</span>
-            <span class="e_info">Suitable for students in {{--$event->region(地域)--}} region.</span>
+            <span class="e_info">Level: {{$event->level}}</span>
+            <span class="e_info">Suitable for students in {{$event->region}} region.</span>
             </div>
             </div>
             <div class="cont_r">
             <div>
-            <img src="{{--$event->img--}}" class="e_img_thumbnail" alt="">
+            <img src="{{$event->img}}" class="e_img_thumbnail" alt="">
             </div>
             <div>
-            <a href="{{--url('books/'.$event->id)--}}"><i class="fas fa-angle-right"></i></a>
+            <a href="{{url('books/'.$event->id)}}"><i class="fas fa-angle-right"></i></a>
             </div>
             </div>
             </div>
-            {{--@endforeach--}}
+            {{@endforeach}}
         </div>
 
 @endsection('content')
