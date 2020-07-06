@@ -40,6 +40,7 @@ class EventsController extends Controller
             $id = $user->id;
             $nations     =   Nation::all();
             $levels     =    Level::all();
+
             $events      =   Event::join('insts','events.insts_id','=','insts.id')
                             ->join('e_r_maps','events.id','=','e_r_maps.events_id')
                             ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')

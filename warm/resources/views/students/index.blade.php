@@ -65,7 +65,7 @@
             </div>
             <div class="cont_r">
             <div>
-            <img src="upload/{{ $event->img}}" class="e_img_thumbnail" alt="">
+            <img src="{{ $event->img}}" class="e_img_thumbnail" alt="">
             </div>
             <div>
             <a href="/events/{{ $event->id }}"><i class="fas fa-angle-right"></i></a>
