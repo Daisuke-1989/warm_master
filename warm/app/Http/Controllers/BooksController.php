@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
+use App\Book;
 
 class BooksController extends Controller
 {
@@ -12,10 +14,10 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
     {
@@ -46,7 +48,7 @@ class BooksController extends Controller
 
         $books = new Book;
         $books->events_id   =  $request->input('events_id');
-        $books->students_id =   Auth::user()->id;
+        $books->students_id =   1; //Auth::user()->id
         $books->CXL         =   0;
         $books->save();    
         return redirect('/students');
@@ -61,9 +63,12 @@ class BooksController extends Controller
     public function show($id)
     {
         $events =Event::join('insts','events.insts_id','=','insts.id')
-                        ->where('id','=',$id);
+                        ->where('events.id','=',$id)
+                        ->first();
+        return view('students.book', ['event' => $events]);
 
-        return view('book', ['event' => $events]);
+        
+
     }
 
     /**

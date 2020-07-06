@@ -15,6 +15,7 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
+use App\Student;
 
 
 class EventsController extends Controller
@@ -31,21 +32,21 @@ class EventsController extends Controller
     // }
 
     public function index()
-{       //$user_id    =   Auth::user()->id->get();
-        $student    =   Student::where('id',1);
+ {      // $user_id    =   Auth::user()->id->get();
+        $student    =   Student::where('id',1)->get();
         $nation     =   Nation::all();
         $event      =   Event::join('insts','events.insts_id','=','insts.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')
-                        ->join('nation','e_r_maps.regions_id','rgn_id')
+                        ->join('nations','e_r_maps.regions_id','rgn_id')
                         ->join('e_l_maps','events.id','=','e_l_maps.events_id',)
                         ->join('levels','e_l_maps.levels_id','=','levels_id')
                         ->get();
         
         
         return view('students.index',[
-                    'student'   =>$student,
-                    'event'     =>$event,
-                    'nation'    =>$nation
+                    'students'   =>$student,
+                    'events'     =>$event,
+                    'nations'    =>$nation
                     ]);
         
     }
@@ -172,12 +173,12 @@ class EventsController extends Controller
     {
         $event  =Event::join('insts','events.insts_id','=','insts.id')
                         ->join('e_r_maps','events.id','=','e_r_maps.events_id')
-                        ->join('nation','e_r_maps.regions_id','rgn_id')
+                        ->join('nations','e_r_maps.regions_id','rgn_id')
                         ->join('e_l_maps','events.id','=','e_l_maps.events_id',)
                         ->join('levels','e_l_maps.levels_id','=','levels.id')
                         ->join('e_sbj_maps','events_id','=','e_sbj_maps.events_id')
                         ->join('subjects','e_sbj_maps.subjects_id','=','subject.id')
-                        ->where('id','=',$id)
+                        ->where('events.id','=',$id)
                         ->get();
                         return view('detail', ['event' => $events]);
     }
