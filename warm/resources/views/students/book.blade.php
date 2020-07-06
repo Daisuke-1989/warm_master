@@ -25,7 +25,7 @@
 
   <div class="row">
 
-    <form action="books" method="post" class="col s12">
+    <form action="{{ route('books.store') }}" method="POST" class="col s12">
     {{ csrf_field() }}
       <div class="row">
         <div class="input-field col s12">
@@ -45,9 +45,9 @@
           <p class="validate">{{--ユーザーemail--}}</p>
         </div>
       </div>
-      <input type="hidden" name="event_id" value="{{$event->id}}">
+      <input type="hidden" name="event_id" value="{{$event->event_id}}">
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
-
+      
     </form>
 
   </div>

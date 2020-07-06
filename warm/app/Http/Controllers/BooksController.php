@@ -43,11 +43,8 @@ class BooksController extends Controller
     public function store(Request $request)
     {
         //バリデーションはいらない（ユーザーが入力する項目がないので)
-        
-        
-
         $books = new Book;
-        $books->events_id   =  $request->input('events_id');
+        $books->events_id   =  $request->input('event_id');
         $books->students_id =   1; //Auth::user()->id
         $books->CXL         =   0;
         $books->save();    
@@ -64,6 +61,7 @@ class BooksController extends Controller
     {
         $events =Event::join('insts','events.insts_id','=','insts.id')
                         ->where('events.id','=',$id)
+                        ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.img','insts.inst_name') 
                         ->first();
         return view('students.book', ['event' => $events]);
 
