@@ -33,9 +33,9 @@ class Inst_usersController extends Controller
         // $inst_user = User::find($id)->get();
 
         //instテーブルのidと大学ユーザーテーブルの大学idと合致するレコードを探して、$instに代入する。
-        // $inst = Inst::where('id', $id)->get();
         $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
             ->where('inst_users.id', $id)
+            ->select('insts.id', 'insts.inst_name')
             ->first();
 
         // view'dashboard'で、{{ $inst_user->firstname }}で大学ユーザーの名前を,{{ $inst->inst_name }}で大学名を呼び出し

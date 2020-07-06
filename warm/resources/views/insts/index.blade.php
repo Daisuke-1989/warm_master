@@ -20,6 +20,8 @@
 
 <p class="heading_large">{{ $inst->inst_name }}</p>
 
+<p>{{$inst->id}}</p>
+
 <div class="link_box_flex">
     <div class="link_box_inner">
         <a href="/events/create">
@@ -35,14 +37,14 @@
         </a>
         </div>
     <div class="link_box_inner">
-        <a href="/events/inst_user?id={{ $inst->id }}">
+        <a href="/insts">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Manage Event</p>
                     <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
                 </div>
                 <div class="link_box_r">
-                    <a href="/events/inst_user?id={{ $inst->id }}"><i class="fas fa-angle-right"></i></a>
+                    <a href="/insts"><i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </a>

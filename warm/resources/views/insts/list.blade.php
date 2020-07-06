@@ -21,7 +21,7 @@
               <span class="event-time">{{ $event->start_time }} - </span>
               <span class="event-time">{{ $event->end_time }}</span>
               <p class="e_title_40 e_title_large">{{ $event->title }}</p>
-              <a href="events/inst_show?id={{ $event->id }}"><i class="fas fa-chevron-circle-right"></i>Details</a>
+              <a href="insts/{{ $event->id }}"><i class="fas fa-chevron-circle-right"></i>Details</a>
           </div>
 
           <div class="rsv_img">

@@ -16,6 +16,7 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
+use Validator;
 
 
 class EventsController extends Controller
@@ -95,9 +96,9 @@ class EventsController extends Controller
             'title' => 'required',
             'inst_id' => 'required',
             'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
-            'dtls' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'detail' => 'required',
             'img' => 'required',
             'user_id' => 'required',
             'lvls' => 'required',
@@ -169,7 +170,7 @@ class EventsController extends Controller
     public function show($id)
     {
         $events =Event::find($id);
-        return view('detail', ['event' => $events]);
+        return view('students.detail', ['event' => $events]);
         //joinまだできていません（田中）
     }
 
@@ -238,7 +239,7 @@ class EventsController extends Controller
         return redirect('/events/{{ $event->id }}/edit');
     }
 
-    public function inst_index(Request $request){
+    public function inst_index($id){
 
         // // session値が取れている場合
         // $inst_id = $request->session()->get('inst_id');
@@ -246,12 +247,18 @@ class EventsController extends Controller
         // $events = Event::where('insts_id', $inst_id)->get();
 
         // session値が取れていない場合
-        $user_id = Auth::user()->id->get();
-        $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
-        $inst = Inst::where('id', $inst_id)->get();
-        $events = Event::where("insts_id", $inst_id)->get();
+        // $user_id = Auth::user()->id->get();
+        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
+        // $inst = Inst::where('id', $inst_id)->get();
 
-        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+        // $user = Auth::user();
+        
+        // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
+        //     ->where('events.insts_id', $id)
+        //     ->first();
+        // $events = Event::where('id', $id)->get();
+
+        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
 
     }
 
