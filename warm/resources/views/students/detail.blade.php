@@ -29,7 +29,7 @@
           <div class="e_infoLarger">Subject areas: <span>{{$event->subject}}</span></div>
           <div class="e_infoLarger">Suitable for students from <span>{{$event->region}}</span> region.</div>
 
-    <a href="{{url('books/'.$event->id)}}" class="e_book">Book</a>
+    <a href="{{url('books/'.$event->event_id)}}" class="e_book">Book</a>
 
 </div>
 

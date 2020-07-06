@@ -203,6 +203,7 @@ class EventsController extends Controller
                     ->join('e_sbj_maps','events.id','=','e_sbj_maps.events_id')
                     ->join('subjects','e_sbj_maps.subjects_id','=','subjects.id')
                     ->where('events.id','=',$id)
+                    ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.dtls','events.img','insts.inst_name','nations.country','levels.level','subjects.subject','nations.region')
                     ->first();
         return view('students.detail', ['event'=>$events]);
 
