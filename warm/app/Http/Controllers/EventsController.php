@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use App\Inst;
 use App\Inst_user;
 use App\Level;
@@ -25,10 +26,10 @@ class EventsController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
     {    $events=Events::all(); //foreachで表示させる
@@ -44,8 +45,17 @@ class EventsController extends Controller
     public function create()
     {
         //イベント作成時に、大学と大学ユーザーのIDをstoreに渡す
-        $inst_user = Auth::user()->id->get();
-        $inst = Inst::where('id', $inst_user['inst_id']);
+        // $user = auth()->user();
+        // $id = $user->id;
+
+        $user = Auth::user();
+        
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $user->id)
+            ->first();
+        // $inst_id = Inst_user::where('id', $id)->get('inst_id');
+        // // $inst_id = $inst_user['inst_id'];
+        // $inst = Inst::where('id', $inst_id)->get();
 
         //level: フォームのセレクトボックスのvalue
         $levels = Level::all();
@@ -54,9 +64,11 @@ class EventsController extends Controller
         $subjects = Subject::all();
 
         //region: フォームのセレクトボックスのvalue
+        // distinctを使う
         $regions = Nation::all();
 
-        return view('events.create', ['inst_user'=>$inst_user, 'inst'=> $inst, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions]);
+        return view('insts.create', ['user'=>$user, 'inst'=> $inst, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions]);
+
     }
 
     /**

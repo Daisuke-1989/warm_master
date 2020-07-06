@@ -3,10 +3,10 @@
 
 <div class="inner">
 <p class="greet_small">
-    Hello, {{ $inst_user->firstname }}！
+    Hello, {{ $user->firstname }}！
 </p>
 
-<a href="/inst_users/{{ $inst_user->id }}">
+<a href="/inst_users/{{ $user->id }}">
     <div class="link_box">
         <div class="link_box_l">
             <p class="link_box_heading">Manage Personal Account</p>
