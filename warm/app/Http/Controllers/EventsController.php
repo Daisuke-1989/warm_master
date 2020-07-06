@@ -272,93 +272,71 @@ class EventsController extends Controller
         return redirect('/events/{{ $event->id }}/edit');
     }
 
-    public function inst_index($id){
 
-        // // session値が取れている場合
-        // $inst_id = $request->session()->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
-        // $events = Event::where('insts_id', $inst_id)->get();
+    // public function inst_show($id){
 
-        // session値が取れていない場合
-        // $user_id = Auth::user()->id->get();
-        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
+    //     // // session値が取れている場合
+    //     // $inst_id = $request->session()->get('inst_id');
+    //     // $inst = Inst::where('id', $inst_id)->get();
+    //     // $events = Event::where('insts_id', $inst_id)->get();
 
-        // $user = Auth::user();
-        
-        // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
-        //     ->where('events.insts_id', $id)
-        //     ->first();
-        // $events = Event::where('id', $id)->get();
+    //     // session値が取れていない場合
+    //     // $user_id = Auth::user()->id->get();
+    //     // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
+    //     // $inst = Inst::where('id', $inst_id)->get();
+    //     $events = Event::find($id)->get();
+    //     // $events_id = $id;
 
-        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+    //     // イベントの対象となるレベルの抽出
+    //     $levels = Level::select('levels.level')
+    //         ->join('e_l_maps', 'levels.id', '=', 'e_l_maps.levels_id')
+    //         ->join('events', 'e_l_maps.events_id', '=', 'events.id')
+    //         ->where('events.id', '=', $id)
+    //         ->get();
+    //     // $levels = E_l_map::where('events_id', $events_id)->get();
 
-    }
+    //     // イベントの対象となる科目の抽出
+    //     $subjects = Subject::select('subjects.subject')
+    //         ->join('e_sbj_maps', 'subjects.id', '=', 'e_sbj_maps.subjects_id')
+    //         ->join('events', 'e_sbj_maps.events_id', '=', 'events.id')
+    //         ->where('events.id', '=', $id)
+    //         ->get();
+    //     // $subjects = E_sbj_map::where('events_id', $events_id)->get();
 
-    public function inst_show($id){
+    //     // イベントの対象となる地域の抽出
+    //     $regions = Nation::select('nations.region')
+    //         ->join('e_r_maps', 'nations.rgn_id', '=', 'e_r_maps.regions_id')
+    //         ->join('events', 'e_r_maps.events_id', '=', 'events.id')
+    //         ->where('events.id', '=', $id)
+    //         ->get();
+    //     // $regions = E_r_map::where('events_id', $events_id)->get();
 
-        // // session値が取れている場合
-        // $inst_id = $request->session()->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
-        // $events = Event::where('insts_id', $inst_id)->get();
+    //     // イベントの参加者数
+    //     $regs = Book::select(DB::raw('count(*) as reg_num'))
+    //         ->where('events_id', '=', $id) 
+    //         ->where('CXL', '=', 0)
+    //         ->get();
 
-        // session値が取れていない場合
-        // $user_id = Auth::user()->id->get();
-        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
-        $events = Event::find($id)->get();
-        // $events_id = $id;
+    //     // イベントの参加者リスト
+    //     $ppts = Book::join('students', 'books.students_id', '=', 'students.id')
+    //         ->join('users', 'students.id', '=', 'users.id')
+    //         ->join('nations', 'students.nations_id', '=', 'nations.id')
+    //         ->join('s_l_maps', 's_l_maps.students_id', '=', 'books.students_id')
+    //         ->join('levels', 's_l_maps.levels_id', '=', 'levels.id')
+    //         ->where('books.events_id', '=', $id)
+    //         ->where('books.CXL', '=', 0)
+    //         ->get();
 
-        // イベントの対象となるレベルの抽出
-        $levels = Level::select('levels.level')
-            ->join('e_l_maps', 'levels.id', '=', 'e_l_maps.levels_id')
-            ->join('events', 'e_l_maps.events_id', '=', 'events.id')
-            ->where('events.id', '=', $id)
-            ->get();
-        // $levels = E_l_map::where('events_id', $events_id)->get();
+    //     // 質問数、質問タイプと内容
+    //     $qrys = Query::join('terms', 'querys.terms_id', '=', 'terms.id')
+    //         ->where('querys.events_id', '=', $id)
+    //         ->orderBy('terms.id', 'desc')
+    //         ->select(DB::raw('count(*) as qry_num'), 'terms.term', 'querys.dtls')
+    //         ->get();
 
-        // イベントの対象となる科目の抽出
-        $subjects = Subject::select('subjects.subject')
-            ->join('e_sbj_maps', 'subjects.id', '=', 'e_sbj_maps.subjects_id')
-            ->join('events', 'e_sbj_maps.events_id', '=', 'events.id')
-            ->where('events.id', '=', $id)
-            ->get();
-        // $subjects = E_sbj_map::where('events_id', $events_id)->get();
+    //     return view('insts.detail', ['events'=>$events, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions, 'regs'=>$regs, 'qrys'=>$qrys, 'ppts'=>$ppts]);
 
-        // イベントの対象となる地域の抽出
-        $regions = Nation::select('nations.region')
-            ->join('e_r_maps', 'nations.rgn_id', '=', 'e_r_maps.regions_id')
-            ->join('events', 'e_r_maps.events_id', '=', 'events.id')
-            ->where('events.id', '=', $id)
-            ->get();
-        // $regions = E_r_map::where('events_id', $events_id)->get();
-
-        // イベントの参加者数
-        $regs = Book::select(DB::raw('count(*) as reg_num'))
-            ->where('events_id', '=', $id) 
-            ->where('CXL', '=', 0)
-            ->get();
-
-        // イベントの参加者リスト
-        $ppts = Book::join('students', 'books.students_id', '=', 'students.id')
-            ->join('users', 'students.id', '=', 'users.id')
-            ->join('nations', 'students.nations_id', '=', 'nations.id')
-            ->join('s_l_maps', 's_l_maps.students_id', '=', 'books.students_id')
-            ->join('levels', 's_l_maps.levels_id', '=', 'levels.id')
-            ->where('books.events_id', '=', $id)
-            ->where('books.CXL', '=', 0)
-            ->get();
-
-        // 質問数、質問タイプと内容
-        $qrys = Query::join('terms', 'querys.terms_id', '=', 'terms.id')
-            ->where('querys.events_id', '=', $id)
-            ->orderBy('terms.id', 'desc')
-            ->select(DB::raw('count(*) as qry_num'), 'terms.term', 'querys.dtls')
-            ->get();
-
-        return view('insts.detail', ['events'=>$events, 'levels'=>$levels, 'subjects'=>$subjects, 'regions'=>$regions, 'regs'=>$regs, 'qrys'=>$qrys, 'ppts'=>$ppts]);
-
-    }
+    // }
 
     /**
      * Remove the specified resource from storage.
