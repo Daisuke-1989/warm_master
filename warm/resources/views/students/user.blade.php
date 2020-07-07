@@ -14,7 +14,7 @@
 
 @foreach($books as $book)
     <div class="rsv_box mb60">
-        <div class="rsv_cont"> 
+        <div class="rsv_cont">
             <div>
                 <span class="e-date">{{$book->date}}</span>
                 <span class="event-time">{{$book->start_time}} - </span>
@@ -23,13 +23,13 @@
             <p class="e_inst">{{$book->inst_name}}</p>
             <p class="e_title_40">{{$book->title}}</p>
             <a href="{{url('books/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Details</a>
-            <a href="{{url('querys/create/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Ask questions</a>
+            <a href="{{url('querys/'.$book->event_id.'/create')}}"><i class="fas fa-chevron-circle-right"></i>Ask questions</a>
             <a href="{{url('books/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Cancel</a>
         </div>
         <div class="rsv_img">
-            <img src="{{$book->img}}" alt="" class="rsv_img_size">
-        </div>
-    </・div>
+            <img src="{{ asset('storage/img/' .$book->img) }}" alt="" class="rsv_img_size">
+        <div>
+    </div>
 @endforeach
 
 </div>

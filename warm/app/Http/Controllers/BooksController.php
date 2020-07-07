@@ -48,7 +48,7 @@ class BooksController extends Controller
         $books->events_id   =  $request->input('event_id');
         $books->students_id =   1; //Auth::user()->id
         $books->CXL         =   0;
-        $books->save();    
+        $books->save();
         return redirect('/students');
     }
 

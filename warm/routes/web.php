@@ -15,22 +15,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('inistUserRegister', 'Auth\RegisterController@showInstUserRegistrationForm');
+Route::get('instsUserRegister', 'Auth\RegisterController@showInstUserRegistrationForm');
 
-Route::post('inistUserRegister', 'Auth\RegisterController@instUserRegister')->name('inistUserRegister');
+Route::post('instsUserRegister', 'Auth\RegisterController@instUserRegister')->name('instsUserRegister');
 
-Route::get('inistUserLogin', 'Auth\LoginController@instUserShowLoginForm');
+Route::get('instsUserLoginForm', 'Auth\LoginController@instUserShowLoginForm')->name('instsUserLoginForm');
 
-Route::post('inistUserLogin', 'Auth\LoginController@instUserLogin')->name('inistUserLogin');
+Route::post('instsUserLogin', 'Auth\LoginController@instUserLogin')->name('instsUserLogin');
+
+Route::post('instsUserLogout', 'Auth\LoginController@instUserLogout')->name('instsUserLogout');
 
 
-Route::get('studentRegister', 'Auth\RegisterController@showStudentRegistrationForm');
+Route::get('studentsRegister', 'Auth\RegisterController@showStudentRegistrationForm');
 
-Route::post('studentRegister', 'Auth\RegisterController@studentRegister')->name('studentRegister');
+Route::post('studentsRegister', 'Auth\RegisterController@studentRegister')->name('studentsRegister');
 
-Route::get('studentLogin', 'Auth\LoginController@studentShowLoginForm');
+Route::get('studentsLoginForm', 'Auth\LoginController@studentShowLoginForm')->name('studentsLoginForm');
 
-Route::post('studentLogin', 'Auth\LoginController@studentLogin')->name('istudentLogin');
+Route::post('studentsLogin', 'Auth\LoginController@studentLogin')->name('studentsLogin');
+
+Route::post('studentsLogout', 'Auth\LoginController@studentLogout')->name('studentsLogout');
 
 Auth::routes();
 
@@ -69,3 +73,6 @@ Route::resource('s_n_maps', 'S_n_mapsController');
 Route::resource('s_l_maps', 'S_l_mapsController');
 
 Route::resource('s_sbj_maps', 'S_sbj_mapsController');
+
+Route::get('querys/{id}/create','QuerysController@info');
+Route::post('querys/set','QuerysController@set');

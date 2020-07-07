@@ -4,7 +4,7 @@
 
 <div class="inner">
 
-    
+
         <div class="e_time">
           <div>
             <span class="event-date">{{$event->date}}</span>
@@ -22,10 +22,10 @@
           <p class="event-description">{{$event->dtls}}</p>
           </div>
           <div class="e_imgLarger">
-            <img src="{{$event->img}}" class="event_img" alt="">
+            <img src="{{ asset('storage/img/' .$event->img) }}" class="event_img" alt="">
           </div>
         </div>
-          <div class="e_infoLarger">Level: <span>{{$event->level}}</span></div> 
+          <div class="e_infoLarger">Level: <span>{{$event->level}}</span></div>
           <div class="e_infoLarger">Subject areas: <span>{{$event->subject}}</span></div>
           <div class="e_infoLarger">Suitable for students from <span>{{$event->region}}</span> region.</div>
 
@@ -34,5 +34,3 @@
 </div>
 
 @endsection('content')
-
-

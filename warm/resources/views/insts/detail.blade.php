@@ -24,26 +24,26 @@
             <p class="event-description">{{ $events->dtls }}</p>
           </div>
           <div class="e_imgLarger">
-            <img src="{{ $events->img }}" class="event_img" alt="">
+            <img src="{{ asset('storage/img/' .$event->img) }}" class="event_img" alt="">
           </div>
         </div>
-        <div class="e_infoSmaller">Level: 
+        <div class="e_infoSmaller">Level:
           @foreach($levels as $level)
             <span>{{ $level["level"] }} </span>
           @endforeach
-        </div> 
-        <div class="e_infoSmaller">Subject areas: 
+        </div>
+        <div class="e_infoSmaller">Subject areas:
           @foreach($subjects as $subject)
             <span>{{ $subject["subject"] }} </span>
           @endforeach
         </div>
-        <div class="e_infoSmaller">Suitable for students from 
+        <div class="e_infoSmaller">Suitable for students from
           @foreach($regions as $region)
             <span>{{ $region["region"] }}</span> region.
           @endforeach
         </div>
   </div>
-    
+
   <div class="reg mb60">
       <h2 class="sub_heading">Participants</h2>
       @if($regs > 0)
@@ -105,7 +105,7 @@
             @endforeach
           </table>
         </div>
-    
+
 
       @else
         <div>You have no questions sent from students.</div>

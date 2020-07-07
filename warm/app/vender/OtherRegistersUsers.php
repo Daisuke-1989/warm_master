@@ -90,19 +90,40 @@ trait OtherRegistersUsers
         //
         $user = auth()->user();
         $id = $user->id;
+        // $id = Auth::user()->id->get();
+        // $inst_user = User::find($id)->get();
+
+        //instテーブルのidと大学ユーザーテーブルの大学idと合致するレコードを探して、$instに代入する。
         $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
             ->where('inst_users.id', $id)
-            ->select('insts.inst_name', 'insts.id')
+            ->select('insts.id', 'insts.inst_name')
             ->first();
-        $inst_id = $inst->id;
-        $events = Event::where('insts_id', $inst_id)->get();
 
-        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+        // view'dashboard'で、{{ $inst_user->firstname }}で大学ユーザーの名前を,{{ $inst->inst_name }}で大学名を呼び出し
+        return view('insts.index', ['user'=>$user, 'inst'=>$inst]);
     }
 
     protected function studentRegistered(Request $request, $user)
     {
         //
-        return view('students.index',compact('nations','levels','events'));
+        $user = auth()->user();
+            $id = $user->id;
+            $nations     =   Nation::all();
+            $levels     =    Level::all();
+
+            $events      =   Event::join('insts','events.insts_id','=','insts.id')
+                            ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                            ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                            ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                            ->join('levels','e_l_maps.levels_id','=','levels.id')
+                            ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                            ->get();
+
+            return view('students.index',[
+                        'user'      =>$user,
+                        'events'     =>$events,
+                        'nations'    =>$nations,
+                        'levels'    =>$levels
+                        ]);
     }
 }

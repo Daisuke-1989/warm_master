@@ -9,6 +9,7 @@
 
     <form action="/inst_users/{{ $user->id }}" method="post" class="col s12">
     @csrf
+    @method('PUT')
     <div class="row">
         <div class="input-field col s6">
             <label for="firstname"></label>
@@ -44,7 +45,7 @@
     </form>
 
     </div>
-    
+
 </div>
 
 @endsection('content')
