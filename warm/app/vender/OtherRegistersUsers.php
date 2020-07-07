@@ -90,14 +90,17 @@ trait OtherRegistersUsers
         //
         $user = auth()->user();
         $id = $user->id;
+        // $id = Auth::user()->id->get();
+        // $inst_user = User::find($id)->get();
+
+        //instテーブルのidと大学ユーザーテーブルの大学idと合致するレコードを探して、$instに代入する。
         $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
             ->where('inst_users.id', $id)
-            ->select('insts.inst_name', 'insts.id')
+            ->select('insts.id', 'insts.inst_name')
             ->first();
-        $inst_id = $inst->id;
-        $events = Event::where('insts_id', $inst_id)->get();
 
-        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+        // view'dashboard'で、{{ $inst_user->firstname }}で大学ユーザーの名前を,{{ $inst->inst_name }}で大学名を呼び出し
+        return view('insts.index', ['user'=>$user, 'inst'=>$inst]);
     }
 
     protected function studentRegistered(Request $request, $user)
