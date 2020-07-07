@@ -4,6 +4,8 @@ var ctx2 = $('#myChart2');
 var ctx3 = $('#myChart3');
 var ctx4 = $('#myChart4');
 
+console.log(c[0]);
+
 
 var options1 = {
     title :{
@@ -71,7 +73,7 @@ var options4 = {
 var data1 = {
     
     datasets: [{
-        data: '{{ $json2 }}',
+        data: c2,
         backgroundColor: [
             "#6A2B86",
             "#F0E52F",
@@ -93,14 +95,14 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: '{{ $json }}'
+    labels: c
     
     };
 
     var data2 = {
     
     datasets: [{
-        data: '{{ $json4 }}',
+        data: c4,
         backgroundColor: [
             "#71C3FE",
             "#D0FA96",
@@ -119,14 +121,14 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels:  '{{ $json3 }}'
+    labels:  c3
 
     };
 
     var data3 = {
     
     datasets: [{
-        data: '{{ $json6 }}',
+        data: c6,
         backgroundColor: [
             "#71C3FE",
             "#D0FA96",
@@ -145,7 +147,7 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels:  '{{ $json5 }}'
+    labels:  c5
     };
 
 var data4 = {
@@ -157,9 +159,9 @@ var data4 = {
         backgroundColor: "#25DD76",
         borderColor: "#25DD76",
         borderWidth: 1,
-        data: '{{ $json8 }}'
+        data: c8
     }],
-    labels: '{{ $json7 }}'
+    labels: c7
     
 };
 
