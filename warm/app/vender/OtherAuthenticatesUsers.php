@@ -181,17 +181,7 @@ trait OtherAuthenticatesUsers
      */
     protected function instUserAuthenticated($user)
     {
-        // $user = auth()->user();
-        // $id = $user->id;
-
-        // $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
-        //     ->where('inst_users.id', $id)
-        //     ->select('insts.inst_name', 'insts.id')
-        //     ->first();
-        // $inst_id = $inst->id;
-        // $events = Event::where('insts_id', $inst_id)->get();
-
-        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+        //
     }
 
     protected function studentAuthenticated(Request $request, $user)
@@ -248,7 +238,7 @@ trait OtherAuthenticatesUsers
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/inistsUserLogin');
+        return $this->loggedOut($request) ?: redirect('/instsUserLoginForm');
     }
 
     public function studentLogout(Request $request)
@@ -257,7 +247,7 @@ trait OtherAuthenticatesUsers
 
         $request->session()->invalidate();
 
-        return $this->loggedOut($request) ?: redirect('/studentsLogin');
+        return $this->loggedOut($request) ?: redirect('/studentsLoginForm');
     }
 
     /**
