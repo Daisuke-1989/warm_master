@@ -9,11 +9,10 @@
 </div>
 
 <div class="container">
-
 <p class="heading">Register</p>
 
     <div class="row">
-                    <form method="POST" action="{{ route('register') }}" class="col s12">
+                    <form method="POST" action="{{ route('studentRegister') }}" class="col s12">
                         @csrf
 
                         <div class="row">

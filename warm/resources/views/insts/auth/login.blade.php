@@ -8,10 +8,11 @@
 </div>
 <div class="container">
 
+
 <p class="heading">Login</p>
 
     <div class="row">
-                    <form method="POST" action="{{ route('login') }}" class="col s12">
+                    <form method="POST" action="{{ route('instsUserLogin') }}" class="col s12">
                         @csrf
 
                         <div class="row">
