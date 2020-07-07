@@ -22,7 +22,7 @@
     <!-- Styles -->
     <link rel="stylesheet" href="../css/reset.css">
     <link rel="stylesheet" href="../css/main.css">
-    
+
 </head>
 <body>
     <div id="app">
@@ -45,32 +45,32 @@
                     <div class="nav-list">
                         <!-- Authentication Links -->
                         @guest
-                            
-                                <a class="nav-item" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            
-                            @if (Route::has('register'))
-                               
-                                    <a class="nav-item" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                
+
+                                <a class="nav-item" href="{{ route('instsUserLoginForm') }}">{{ __('Login') }}</a>
+
+                            @if (Route::has('instsUserRegister'))
+
+                                    <a class="nav-item" href="{{ route('instsUserRegister') }}">{{ __('Register') }}</a>
+
                             @endif
                         @else
-                            
+
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item nav-item" href="{{ route('logout') }}"
+                                    <a class="dropdown-item nav-item" href="{{ route('instsUserLogout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    <form id="logout-form" action="{{ route('instsUserLogout') }}" method="POST" style="display: none;">
                                         @csrf
                                     </form>
                                 </div>
-                           
+
                         @endguest
                     </div>
                 </div>
@@ -89,7 +89,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- jqueryとchart.jsの読み込み  -->
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
 
     <script src="{{ asset('./js/script.js') }}"></script>
