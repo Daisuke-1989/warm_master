@@ -82,7 +82,8 @@ class SubjectsController extends Controller
             ->orderBy('nations.country')
             ->select('nations.country', DB::raw('count(nations.country) as total'))
             ->get();
-
+            // ->pluck('country')->toArray();
+            // dd($cntrys);
             // SQL文
             // $sql = "SELECT stu_cntry.stucntry, COUNT(stucntry) as total
             // FROM stu_cntry
@@ -92,32 +93,20 @@ class SubjectsController extends Controller
             // GROUP BY stu_cntry.stucntry
             // ORDER BY stu_cntry.stucntry";
 
-        $json[] = '';
-        $json2[] = '';
-        $view = '';
+        $json = [];
+        $json2 = [];
 
-        if(!isset($cntrys[0])){
-
-            $view .= '<tr>';
-            $view .= '<td>none</td>';
-            $view .= '<td>none</td>';
-            $view .= '</tr>';
-
-        }else{
-
-            foreach($cntrys as $cntry){
-                // jsonに変換
-                // extract($cntry);
-                $json[] = $cntry->country;
-                $json2[] = $cntry->total;
-                
-                $view .= '<tr>';
-                $view .= '<td>'.$cntry['country'].'</td>';
-                $view .= '<td>'.$cntry['total'].'</td>';
-                $view .= '</tr>';
-            }
+        foreach($cntrys as $cntry){
+            
+            // jsonに変換
+            // extract($cntrys);
+            $json[] = $cntry->country;
+            $json2[] = $cntry->total;
+            // dd($json);
         }
 
+    
+       
         // 希望の留学先
         $dtns = Nation::join('s_n_maps', 'nations.id', '=', 's_n_maps.nations_id')
             ->join('students', 's_n_maps.students_id', '=', 'students.id')
@@ -127,6 +116,7 @@ class SubjectsController extends Controller
             ->groupBy('nations.country')
             ->select('nations.country', DB::raw('count(nations.country) as total'))
             ->get();
+            // ->pluck('country')->toArray();
 
             // SQL文
             // $sql = "SELECT icntry.icntry, COUNT(icntry) as total
@@ -137,31 +127,20 @@ class SubjectsController extends Controller
             // WHERE rsv.r_e_id = :id AND rsv.rsv_flg=1
             // GROUP BY icntry.icntry";
 
-            $json3[] = '';
-            $json4[] = '';
+            $json3 = [];
+            $json4 = [];
             $view_d = '';
     
-            if(!isset($dtns[0])){
-    
-                $view_d .= '<tr>';
-                $view_d .= '<td>0</td>';
-                $view_d .= '<td>0</td>';
-                $view_d .= '</tr>';
-    
-            }else{
-    
-                foreach($dtns as $dtn){
-                    // jsonに変換
-                    // extract($cntry);
-                    $json3[] = $dtn->country;
-                    $json4[] = $dtn->total;
-                    
-                    $view_d .= '<tr>';
-                    $view_d .= '<td>'.$dtn['country'].'</td>';
-                    $view_d .= '<td>'.$dtn['total'].'</td>';
-                    $view_d .= '</tr>';
-                }
+            
+            foreach($dtns as $dtn){
+                // jsonに変換
+                // extract($dtns);
+                $json3[] = $dtn->country;
+                $json4[] = $dtn->total;
+                
             }
+
+        
 
         // 留学のレベル
         $lvls = Level::join('s_l_maps', 'levels.id', '=', 's_l_maps.levels_id')
@@ -172,6 +151,7 @@ class SubjectsController extends Controller
             ->groupBy('levels.level')
             ->select('levels.level', DB::raw('count(levels.level) as total'))
             ->get();
+            // ->pluck('level')->toArray();
     
             // SQL文
             // $sql = "SELECT lvl.lvl, COUNT(lvl) as total
@@ -182,30 +162,15 @@ class SubjectsController extends Controller
             // WHERE rsv.r_e_id = :id AND rsv.rsv_flg=1
             // GROUP BY lvl.lvl"; 
 
-            $json5[] = '';
-            $json6[] = '';
-            $view_l = '';
+            $json5 = [];
+            $json6 = [];
     
-            if(!isset($lvls[0])){
-    
-                $view_l .= '<tr>';
-                $view_l .= '<td>0</td>';
-                $view_l .= '<td>0</td>';
-                $view_l .= '</tr>';
-    
-            }else{
-    
-                foreach($lvls as $lvl){
+            foreach($lvls as $lvl){
                     // jsonに変換
-                    // extract($cntry);
+                    // extract($lvls);
                     $json5[] = $lvl->level;
                     $json6[] = $lvl->total;
-                    
-                    $view_l .= '<tr>';
-                    $view_l .= '<td>'.$lvl['level'].'</td>';
-                    $view_l .= '<td>'.$lvl['total'].'</td>';
-                    $view_l .= '</tr>';
-                }
+                  
             }
 
         // 科目
@@ -217,6 +182,7 @@ class SubjectsController extends Controller
             ->groupBy('subjects.subject')
             ->select('subjects.subject', DB::raw('count(subject) as total'))
             ->get();
+            // ->pluck('subject')->toArray();
 
                 // SQL文
                 // $sql = "SELECT sbj.sbj, COUNT(sbj) as total
@@ -227,37 +193,27 @@ class SubjectsController extends Controller
                 // WHERE rsv.r_e_id = :id AND rsv.rsv_flg=1
                 // GROUP BY sbj.sbj";
 
-                $json7[] = '';
-                $json8[] = '';
-                $view_s = '';
-        
-                if(!isset($sbjs[0])){
-        
-                    $view_s .= '<tr>';
-                    $view_s .= '<td>0</td>';
-                    $view_s .= '<td>0</td>';
-                    $view_s .= '</tr>';
-        
-                }else{
-        
-                    foreach($sbjs as $sbj){
-                        // jsonに変換
-                        // extract($cntry);
-                        $json7[] = $sbj->sbject;
-                        $json8[] = $sbj->total;
-                        
-                        $view_s .= '<tr>';
-                        $view_s .= '<td>'.$sbj['subject'].'</td>';
-                        $view_s .= '<td>'.$sbj['total'].'</td>';
-                        $view_s .= '</tr>';
-                    }
+                $json7 = [];
+                $json8 = [];
+
+                foreach($sbjs as $sbj){
+                    // jsonに変換
+                    // extract($sbjs);
+                    $json7[] = $sbj->subject;
+                    $json8[] = $sbj->total;
+  
                 }
+                 
 
         // return view('insts.chart_each', ['events'=>$events, 'cntrys'=>$cntrys, 'dtns'=>$dtns, 'lvls'=>$lvls, 'sbjs'=>$sbjs]);
 
         // return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'sbjs'=>$sbjs, 'json'=>$json, 'json2'=>$json2, 'json3'=>$json3, 'json4'=>$json4, 'json5'=>$json5, 'json6'=>$json6, 'json7'=>$json7, 'json8'=>$json8]);
 
-        return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'sbjs'=>$sbjs, $json->toJson(), $json2->toJson(), $json3->toJson(), $json4->toJson(), $json5->toJson(), $json6->toJson(), $json7->toJson(), $json8->toJson()]);
+        
+
+        // return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'view_s'=>$view_s,'sbjs'=>$sbjs, 'json'=>$json, 'json2'=>$json2, 'json3'=>$json3, 'json4'=>$json4, 'json5'=>$json5, 'json6'=>$json6, 'json7'=>$json7, 'json8'=>$json8]);
+
+        return view('insts.chart_each', ['events'=>$events, 'cntrys'=>$cntrys, 'dtns'=>$dtns, 'lvls'=>$lvls, 'sbjs'=>$sbjs, 'json'=>$json, 'json2'=>$json2, 'json3'=>$json3, 'json4'=>$json4, 'json5'=>$json5, 'json6'=>$json6, 'json7'=>$json7, 'json8'=>$json8]);
 
     }
 

@@ -50,7 +50,7 @@
         </a>
     </div>
     <div class="link_box_inner">
-        <a href="i_stats.php?id= {{ $inst->id }}">
+        <a href="terms/{{ $inst->id }}">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Data</p>

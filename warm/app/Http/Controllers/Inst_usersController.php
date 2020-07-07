@@ -7,6 +7,7 @@ use Auth;
 use App\User;
 use App\Inst;
 use App\Inst_user;
+use Validator;
 
 class Inst_usersController extends Controller
 {

@@ -6,7 +6,7 @@
 <h1 class="heading">Students Statistics</h1>
 
 <div class="mb60">
-<p class="sub_heading"><?= $r_event["e_title"]?> <span>on <?= $r_event["e_date"]?></span></p>
+<p class="sub_heading">{{ $events->title}} <span>on {{ $events->date }}</span></p>
 </div>
 
 <div class="mb80">
@@ -20,7 +20,26 @@
                         <th>Country</th>
                         <th>Number</th>
                     </tr>
-                        {{ $view }}
+                    @if(!isset($cntrys[0]))
+
+                        <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        </tr>
+
+                    @else
+
+                        @foreach($cntrys as $cntry)
+
+                            <tr>
+                            <td>{{ $cntry->country }}</td>
+                            <td>{{ $cntry->total }}</td>
+                            </tr>
+                        @endforeach
+
+                    @endif
+
+
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -39,7 +58,24 @@
                         <th>Destination</th>
                         <th>Number</th>
                     </tr>
-                        {{ $view_d }}
+                    @if(!isset($dtns[0]))
+
+                        <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        </tr>
+
+                        @else
+
+                        @foreach($dtns as $dtn)
+
+                            <tr>
+                            <td>{{ $dtn->country }}</td>
+                            <td>{{ $dtn->total }}</td>
+                            </tr>
+                        @endforeach
+
+                        @endif
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -57,7 +93,24 @@
                         <th>Level</th>
                         <th>Number</th>
                     </tr>
-                        {{ $view_l }}
+                    @if(!isset($lvls[0]))
+
+                    <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    </tr>
+
+                    @else
+
+                    @foreach($lvls as $lvl)
+
+                        <tr>
+                        <td>{{ $lvl->level }}</td>
+                        <td>{{ $lvl->total }}</td>
+                        </tr>
+                    @endforeach
+
+                    @endif
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -75,7 +128,24 @@
                         <th>Sbject area</th>
                         <th>Number</th>
                     </tr>
-                        {{ $view_s }}
+                    @if(!isset($sbjs[0]))
+
+                    <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    </tr>
+
+                    @else
+
+                    @foreach($sbjs as $sbj)
+
+                        <tr>
+                        <td>{{ $sbj->subject }}</td>
+                        <td>{{ $sbj->total }}</td>
+                        </tr>
+                    @endforeach
+
+                    @endif
                 </table>
             </div><div class="pie-chart-container1 chart">
                 <canvas id="myChart4" width="800px" height="800px"></canvas>
@@ -85,4 +155,14 @@
 
 </div>
 </div>
+<script>
+    const c = @json($json);
+    const c2 = @json($json2);
+    const c3 = @json($json3);
+    const c4 = @json($json4);
+    const c5 = @json($json5);
+    const c6 = @json($json6);
+    const c7 = @json($json7);
+    const c8 = @json($json8);
+</script>
 @endsection('content')

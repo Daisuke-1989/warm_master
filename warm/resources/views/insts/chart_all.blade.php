@@ -20,25 +20,25 @@
                             <th>Country</th>
                             <th>Number</th>
                         </tr>
-                            @if(!isset($cntrys[0]))
-                                <tr>
-                                    <td>none</td>
-                                    <td>none</td>
-                                </tr>
-                            @else
+                        @if(!isset($cntrys[0]))
 
-                                @foreach($cntrys as $cntry)
+                        <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        </tr>
 
-        extract($r);
-        $json[] = $r["stucntry"];
-        $json2[]=(int)$r["total"];
-                                    <tr>
-                                        <td>{{ $cntry->country}}</td>
-                                        <td>{{ $cntry->total}}</td>
-                                    </tr>
-                                @endforeach
+                        @else
 
-                            @endif
+                        @foreach($cntrys as $cntry)
+
+                            <tr>
+                            <td>{{ $cntry->country }}</td>
+                            <td>{{ $cntry->total }}</td>
+                            </tr>
+                        @endforeach
+
+                        @endif
+
                     </table>
                 </div>
                 <div class="pie-chart-container chart">
@@ -58,22 +58,21 @@
                             <th>Number</th>
                         </tr>
                         @if(!isset($dtns[0]))
-                                <tr>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
+
+                        <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        </tr>
+
                         @else
 
-                            @foreach($dtns as $dtn)
+                        @foreach($dtns as $dtn)
 
-                            extract($r);
-        $json3[] = $r["icntry"];
-        $json4[] = $r["total"];
-                                <tr>
-                                    <td>{{ $dtn->country}}</td>
-                                    <td>{{ $dtn->total}}</td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                            <td>{{ $dtn->country }}</td>
+                            <td>{{ $dtn->total }}</td>
+                            </tr>
+                        @endforeach
 
                         @endif
                     </table>
@@ -94,27 +93,24 @@
                             <th>Number</th>
                         </tr>
 
-                        @if(!isset($lvls[0]))
+                            @if(!isset($lvls[0]))
+
                             <tr>
-                                <td>0</td>
-                                <td>0</td>
+                            <td>0</td>
+                            <td>0</td>
                             </tr>
-                        @else
+
+                            @else
 
                             @foreach($lvls as $lvl)
 
-                            extract($r);
-        $json5[] = $r["lvl"];
-        $json6[] = $r["total"];
-
                                 <tr>
-                                    <td>{{ $lvl->level }}</td>
-                                    <td>{{ $lvl->total }}</td>
+                                <td>{{ $lvl->level }}</td>
+                                <td>{{ $lvl->total }}</td>
                                 </tr>
-
                             @endforeach
 
-                        @endif
+                            @endif
 
                     </table>
                 </div>
@@ -133,27 +129,22 @@
                                 <th>Sbject area</th>
                                 <th>Number</th>
                             </tr>
-
                             @if(!isset($sbjs[0]))
-                                <tr>
-                                    <td>0</td>
-                                    <td>0</td>
-                                </tr>
+
+                            <tr>
+                            <td>0</td>
+                            <td>0</td>
+                            </tr>
 
                             @else
 
-                                @foreach($sbjs as $sbj)
+                            @foreach($sbjs as $sbj)
 
-                                extract($r);
-        $json7[] = $r["sbj"];
-        $json8[] = $r["total"];
-
-                                    <tr>
-                                        <td>{{ $sbj->subject }}</td>
-                                        <td>{{ $sbj->total }}</td>
-                                    </tr>
-
-                                @endforeach
+                                <tr>
+                                <td>{{ $sbj->subject }}</td>
+                                <td>{{ $sbj->total }}</td>
+                                </tr>
+                            @endforeach
 
                             @endif
                                 
@@ -164,7 +155,7 @@
                 </div> 
             </div>
         </div>
-
+<!-- 
         <p id="btn5" class="c_title pointer"><i class="fas fa-chevron-circle-right"></i>Competitor analysis</p> 
         <div id="out_box5" class="out_box5">
             <div class="chart_box">
@@ -191,14 +182,26 @@
                                 </tr>
 
                                 @endforeach
+
+                            @endif
                         </table>
                     <!-- </div><div class="pie-chart-container1 chart">
                         <canvas id="myChart4" width="800px" height="800px"></canvas>
                     </div>  -->
                 </div>
              </div>
-         </div>
+         </div> -->
     </div>
 </div>
+<script>
+    const c = @json($json);
+    const c2 = @json($json2);
+    const c3 = @json($json3);
+    const c4 = @json($json4);
+    const c5 = @json($json5);
+    const c6 = @json($json6);
+    const c7 = @json($json7);
+    const c8 = @json($json8);
+</script>
 
 @endsection('content')
