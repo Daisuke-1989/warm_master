@@ -19,8 +19,8 @@
 						$table->string('title');
 						$table->bigInteger('insts_id')->unsigned();
 						$table->date('date');
-						$table->time('start_time');
-						$table->time('end_time');
+						$table->string('start_time');
+						$table->string('end_time');
 						$table->string('dtls');
 						$table->string('img');
 						$table->integer('capacity');
