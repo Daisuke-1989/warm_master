@@ -17,7 +17,6 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
-use App\Student;
 use Validator;
 
 
