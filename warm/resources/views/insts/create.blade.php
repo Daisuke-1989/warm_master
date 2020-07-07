@@ -6,7 +6,7 @@
 <h1 class="heading">Create Event</h1>
 
 <div class="row">
-    <form action="/events" method="post" enctype="multipart/form-data" class="col s12">
+    <form action="/insts" method="post" enctype="multipart/form-data" class="col s12">
     @csrf
         <div class="row">
             <div class="input-field col s12">
@@ -78,6 +78,7 @@
                 <input class="file-path validate" type="text">
             </div>
         </div>
+        <p>{{ $inst->id }}</p>
        <!-- <div class="row">
            <input type="file" name="upfile">
        </div> -->

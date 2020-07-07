@@ -5,7 +5,7 @@
 
   <h1 class="heading">Event Details</h1>
 
-  <a href="events/{{ $events->id }}/edit" class="e_edit"><i class="fas fa-chevron-circle-right"></i>Edit event details</a>
+  <a href="/events/{{ $events->id }}/edit" class="e_edit"><i class="fas fa-chevron-circle-right"></i>Edit event details</a>
 
   <div class="mb60">
         <div class="e_time">
