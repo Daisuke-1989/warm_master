@@ -34,7 +34,7 @@ class InstsController extends Controller
 
     public function index()
     {
-        
+
         // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
         // ->where('events.insts_id', $id)
         // ->first();
@@ -54,7 +54,7 @@ class InstsController extends Controller
             ->first();
         $inst_id = $inst->id;
         $events = Event::where('insts_id', $inst_id)->get();
-        
+
 
         // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
         // ->where('events.insts_id', $id)
@@ -62,7 +62,7 @@ class InstsController extends Controller
         // $events = Event::where('insts_id', $id)->get();
 
         return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
-        
+
     }
 
     /**
@@ -78,7 +78,7 @@ class InstsController extends Controller
         // $id = $user->id;
 
         $user = Auth::user();
-        
+
         $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
             ->where('inst_users.id', $user->id)
             ->select('insts.id')
@@ -123,8 +123,8 @@ class InstsController extends Controller
             'inst_id' => 'required',
             'user_id' => 'required'
         ]);
-    
-        //バリデーション:エラー 
+
+        //バリデーション:エラー
         if ($validator->fails()) {
             return redirect('/insts/create')
                 ->withInput()
@@ -135,9 +135,9 @@ class InstsController extends Controller
         // ファイルが空かチェック
         if(!empty($file)){
             // ファイル名を取得
-            $filename = $file->getClientOriginalName();
-            $move = $file->store('./upload/'.$filename); //public/upload....
-            
+            $move = $file->store('public/img/'); //public/upload....
+            $filename = ltrim($move, 'public/img/');
+
         }else{
             $filename = "";
         }
@@ -177,7 +177,7 @@ class InstsController extends Controller
 
             $level->save();
         }
-        
+
         //複数の科目情報とイベントIDを中間テーブルにループで登録
         foreach($request->sbjs as $sbj){
             $subject = new E_sbj_map();
@@ -238,11 +238,11 @@ class InstsController extends Controller
 
         // イベントの参加者数
         // $regs = Book::select(DB::raw('count(*) as reg_num'))
-        //     ->where('events_id', $id) 
+        //     ->where('events_id', $id)
         //     ->where('CXL', '=', 0)
         //     ->first();
-            
-        $regs = Book::where('events_id', $id) 
+
+        $regs = Book::where('events_id', $id)
             ->where('CXL', '=', 0)
             ->count();
 
@@ -271,7 +271,7 @@ class InstsController extends Controller
             ->orderBy('terms.id')
             ->select('terms.term', 'queries.dtls')
             ->get();
-            
+
             //質問タイプと内容sql
             // $sql = "SELECT e_qry_typ,e_qry_cnt
             // FROM e_qry_typ
@@ -291,7 +291,7 @@ class InstsController extends Controller
     public function edit($id)
     {
         //
-        
+
     }
 
     /**
@@ -314,6 +314,6 @@ class InstsController extends Controller
      */
     public function destroy($id)
     {
-        
+
     }
 }
