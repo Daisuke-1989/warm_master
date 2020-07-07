@@ -185,4 +185,135 @@ class EventsController extends Controller
     {
         //
     }
+
+    public function serch(Request $request)
+    {
+
+        $destination    = $request->input('dest');
+        $region         = $request->input('rgn');
+        $level          = $request->input('lvl');
+
+
+
+        $user = auth()->user();
+            $id = $user->id;
+            $nations     =   Nation::all();
+            $levels     =    Level::all();
+
+            if(isset($destination) and isset($region) and isset($level) ){
+                $events=Event::join('insts','events.insts_id','=','insts.id')
+                            ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                            ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                            ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                            ->join('levels','e_l_maps.levels_id','=','levels.id')
+                            ->where('nations.id','=',$destination)
+                            ->where('nations.rgn_id','=',$region)
+                            ->where('levels.id','=',$level)
+                            ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                            ->get();
+            }else{
+                if(isset($region) and isset($level)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('nations.rgn_id','=',$region)
+                    ->where('levels.id','=',$level)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }elseif(isset($destination) and isset($level)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('nations.id','=',$destination)
+                    ->where('levels.id','=',$level)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }elseif(isset($destination) and isset($region)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('nations.id','=',$destination)
+                    ->where('nations.rgn_id','=',$region)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }elseif(isset($destination)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('nations.id','=',$destination)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }elseif(isset($region)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('nations.rgn_id','=',$region)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }elseif(isset($level)){
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->where('levels.id','=',$level)
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }else{
+                    $events=Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                    ->get();
+                }
+            }
+            
+            
+            
+            
+            
+            // elseif(!isset($destination) and isset($region) and !isset($level) ){
+            //     $events=Event::join('insts','events.insts_id','=','insts.id')
+            //                 ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+            //                 ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+            //                 ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+            //                 ->join('levels','e_l_maps.levels_id','=','levels.id')
+            //                 ->where('nations.rgn_id','=',$region)
+            //                 ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+            //                 ->get();
+            // }elseif(!isset($destination) and !isset($region) and isset($level) ){
+            //     $events=Event::join('insts','events.insts_id','=','insts.id')
+            //                 ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+            //                 ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+            //                 ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+            //                 ->join('levels','e_l_maps.levels_id','=','levels.id')
+            //                 ->where('levels.id','=',$level)
+            //                 ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+            //                 ->get();
+            // }
+
+
+            
+
+
+
+            return view('students.index',[
+                        'user'      =>$user,
+                        'events'     =>$events,
+                        'nations'    =>$nations,
+                        'levels'    =>$levels
+                        ]);
+    }
 }

@@ -16,7 +16,7 @@
 <div class="container">
     <h1 class="heading">Search</h1>
     <div id="search" class="row">
-        <form action="{{--url('events')--}}" method="post" id="filterResult" name="filterResult" class="col s12">
+        <form action="/events/serch" method="post" id="filterResult" name="filterResult" class="col s12">
         {{ csrf_field() }}
             <div class="row">
                 <div class="input-field col s12">
@@ -51,7 +51,7 @@
                     <label for="lvl">Level of study</label>
                 </div>
             </div>
-                <button ><span class="btn-filter">Filter</span></button>
+                <button type="submit"><span class="btn-filter">Filter</span></button>
         </form>
     </div>
 
