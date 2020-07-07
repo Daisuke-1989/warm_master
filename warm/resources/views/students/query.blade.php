@@ -21,7 +21,7 @@
             <select name="category" id="">
             <option value="" disabled selected>Select category</option>
             @foreach($subjects as $subject)
-            <option value="{{$term->term_id}}">{{$subjects->subject}}</option>
+            <option value="{{$subject->subject_id}}">{{$subject->subject}}</option>
             @endforeach
             </select>
             <label for="category">Select category</label>

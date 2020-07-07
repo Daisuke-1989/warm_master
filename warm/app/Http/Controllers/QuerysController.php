@@ -3,6 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\User;
+use App\Inst;
+use App\Inst_user;
+use App\Level;
+use App\Subject;
+use App\Student;
+use App\Nation;
+use App\Event;
+use App\E_l_map;
+use App\E_r_map;
+use App\E_sbj_map;
+use App\Book;
+use App\Query;
 
 class QuerysController extends Controller
 {
@@ -28,18 +42,7 @@ class QuerysController extends Controller
      */
     public function create($id)
     {
-        $user = auth()->user();
-
-        $events = Event::join('insts','events.insts_id','=','inst_id')
-                    ->where('events.id','=',$id)
-                    ->select('events.id as event_id','insts.inst_name')
-                    ->first();
-    
-
-        return view('students.query',[
-                                'event'=>$events,
-                                'user'=>$user
-                                ]);
+       
 
     }
 
@@ -105,6 +108,25 @@ class QuerysController extends Controller
     public function destroy($id)
     {
         
+        
+}
+
+public function info($id)
+{
+    $user = auth()->user();
+    $subjects = Subject::all();
+
+    $events = Event::join('insts','events.insts_id','=','insts_id')
+                ->where('events.id','=',$id)
+                ->select('events.id as event_id','insts.inst_name')
+                ->first();
+
+
+    return view('students.query',[
+                            'event'=>$events,
+                            'user'=>$user,
+                            'subjects'=>$subjects
+                            ]);
         
 }
 }
