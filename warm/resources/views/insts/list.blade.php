@@ -13,7 +13,7 @@
     @else
 
       @foreach($events as $event)
-      
+
         <div class="e_list_box mb60">
 
           <div class="e_list_cont">
@@ -25,7 +25,7 @@
           </div>
 
           <div class="rsv_img">
-              <img src="upload/{{ $event->img }}" class="rsv_img_size">
+              <img src="{{ asset('storage/img/' .$event->img) }}" class="rsv_img_size">
           </div>
 
         </div>

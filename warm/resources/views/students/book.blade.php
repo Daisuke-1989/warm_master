@@ -11,15 +11,15 @@
   <div class="rsv_box mb60">
     <div class="rsv_cont">
       <div>
-        <span class="e-date">{{ $event->date }}</span>    
-        <span class="event-time">{{$event->start_time}} - </span> 
-        <span class="event-time">{{$event->end_time}}</span> 
+        <span class="e-date">{{ $event->date }}</span>
+        <span class="event-time">{{$event->start_time}} - </span>
+        <span class="event-time">{{$event->end_time}}</span>
       </div>
       <p class="e_inst">{{$event->inst_name}}</p>
       <p class="e_title">{{$event->title}}</p>
     </div>
     <div class="rsv_img">
-      <img src="{{$event->img}}" alt="" class="rsv_img_size">
+      <img src="{{ asset('storage/img/' .$event->img) }}" alt="" class="rsv_img_size">
     </div>
   </div>
 
@@ -44,7 +44,7 @@
       </div>
       <input type="hidden" name="event_id" value="{{$event->event_id}}">
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
-      
+
     </form>
 
   </div>
