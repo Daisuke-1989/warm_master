@@ -23,11 +23,11 @@
             <p class="e_inst">{{$book->inst_name}}</p>
             <p class="e_title_40">{{$book->title}}</p>
             <a href="{{url('books/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Details</a>
-            <a href="{{url('querys/create/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Ask questions</a>
+            <a href="{{url('querys/'.$book->event_id.'/create')}}"><i class="fas fa-chevron-circle-right"></i>Ask questions</a>
             <a href="{{url('books/'.$book->event_id)}}"><i class="fas fa-chevron-circle-right"></i>Cancel</a>
         </div>
         <div class="rsv_img">
-            <img src="{{ asset('storage/img/' .$event->img) }}" alt="" class="rsv_img_size">
+            <img src="{{ asset('storage/img/' .$book->img) }}" alt="" class="rsv_img_size">
         <div>
     </div>
 @endforeach

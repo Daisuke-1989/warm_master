@@ -28,19 +28,19 @@
     <form action="{{ route('books.store') }}" method="POST" class="col s12">
     {{ csrf_field() }}
       <div class="row">
-        <div class="input-field col s12">
-          <p>First Name : {{$user->firstname}}</p>
-        </div>
+        <!-- <div class="input-field col s12"> -->
+          <p class="e_infoLarger">First Name : <span>{{$user->firstname}}</span></p>
+        <!-- </div> -->
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <p>Last Name : {{$user->lastname}}</p>
-        </div>
+        <!-- <div class="input-field col s12"> -->
+          <p class="e_infoLarger">Last Name : <span>{{$user->lastname}}</span></p>
+        <!-- </div> -->
       </div>
       <div class="row">
-        <div class="input-field col s12">
-          <p>Email : {{$user->email}}</p>
-        </div>
+        <!-- <div class="input-field col s12"> -->
+          <p class="e_infoLarger">Email : <span>{{$user->email}}</span></p>
+        <!-- </div> -->
       </div>
       <input type="hidden" name="event_id" value="{{$event->event_id}}">
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
