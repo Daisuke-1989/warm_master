@@ -369,7 +369,6 @@ class StudentsController extends Controller
         return view('students.user',[
                     'books'=>$book,
                     'user'=>$user,
-
                     ]);
     }
 

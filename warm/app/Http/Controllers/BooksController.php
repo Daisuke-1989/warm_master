@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Event;
 use App\Book;
+use App\Student;
 
 class BooksController extends Controller
 {
@@ -59,11 +60,17 @@ class BooksController extends Controller
      */
     public function show($id)
     {
+        $user = auth()->user();
+        
+
         $events =Event::join('insts','events.insts_id','=','insts.id')
                         ->where('events.id','=',$id)
                         ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.img','insts.inst_name') 
                         ->first();
-        return view('students.book', ['event' => $events]);
+        return view('students.book', [
+                    'event' => $events,
+                    'user'=>$user,
+                    ]);
 
         
 
