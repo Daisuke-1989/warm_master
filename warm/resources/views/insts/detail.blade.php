@@ -24,7 +24,7 @@
             <p class="event-description">{{ $events->dtls }}</p>
           </div>
           <div class="e_imgLarger">
-            <img src="upload/{{ $events->img }}" class="event_img" alt="">
+            <img src="{{ $events->img }}" class="event_img" alt="">
           </div>
         </div>
         <div class="e_infoSmaller">Level: 

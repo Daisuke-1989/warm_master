@@ -131,16 +131,15 @@ class InstsController extends Controller
                 ->withErrors($validator);
         }
 
-        $file = $request->file('upfile');
+        // $file = $request->file('upfile');
+        $file = $request->file('upfile')->store('public/img/'); //storage>app>publicに入る
+        
         // ファイルが空かチェック
-        if(!empty($file)){
+        if(empty($file)){
             // ファイル名を取得
-            $filename = $file->getClientOriginalName();
-            $move = $file->store('./upload/'.$filename); //public/upload....
-            
-        }else{
-            $filename = "";
+            return redirect('/insts/create');
         }
+          
 
         //イベント情報を登録
         $event = new Event();
@@ -161,7 +160,7 @@ class InstsController extends Controller
         $event->end_time = $endtime3;
         $event->dtls = request('detail');
         $event->capacity = 1;
-        $event->img = $filename;
+        $event->img = $file;
         $event->inst_users_id = request('user_id');
 
         $event->save();

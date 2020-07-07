@@ -25,7 +25,7 @@
           </div>
 
           <div class="rsv_img">
-              <img src="upload/{{ $event->img }}" class="rsv_img_size">
+              <img src="{{ $event->img }}" class="rsv_img_size">
           </div>
 
         </div>
