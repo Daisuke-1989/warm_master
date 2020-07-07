@@ -6,7 +6,7 @@
 
 <div class="inner">
 
-<h1 class="greet"><?=$_SESSION["firstname"]?>, you are asking a question about ...</h1>
+<h1 class="greet">{{A}}, you are asking a question about ...</h1>
 
 </div>
 
@@ -22,7 +22,7 @@
             <select name="category" id="">
             <option value="" disabled selected>Select category</option>
             @foreach($terms as $term)
-            <option value="{{$term->term}}">{{$term->term}}</option>
+            <option value="{{$term->term_id}}">{{$term->term}}</option>
             @endforeach
             </select>
             <label for="category">Select category</label>

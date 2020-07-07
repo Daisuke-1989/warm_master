@@ -12,14 +12,13 @@ class QuerysController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
-    public function index()
-    {
-        //
+    public function index(){
+        
     }
 
     /**
@@ -29,18 +28,26 @@ class QuerysController extends Controller
      */
     public function create()
     {
-        //
+    //処理を書く
+
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function store(Request $request)
     {
-        //
+            $querys = new  Query;
+            $querys->events_id = $request->input('e_id');
+            $querys->terms_id = $request->input('category');
+            $querys->students_id = $request->input('s_id');
+            $querys->sdtls = $request->input('qry');
+            $querys->seve();
+            return redirect('/students');
     }
 
     /**
@@ -51,7 +58,7 @@ class QuerysController extends Controller
      */
     public function show($id)
     {
-        //
+       
     }
 
     /**
@@ -62,7 +69,7 @@ class QuerysController extends Controller
      */
     public function edit($id)
     {
-        //
+      
     }
 
     /**
@@ -74,7 +81,8 @@ class QuerysController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        
+
     }
 
     /**
@@ -85,6 +93,7 @@ class QuerysController extends Controller
      */
     public function destroy($id)
     {
-        //
-    }
+        
+        
+}
 }
