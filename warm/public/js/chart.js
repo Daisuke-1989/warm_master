@@ -71,7 +71,7 @@ var options4 = {
 var data1 = {
     
     datasets: [{
-        data: '{{ $json2 }}',
+        data: '{{ $json2_e }}',
         backgroundColor: [
             "#6A2B86",
             "#F0E52F",
@@ -93,14 +93,14 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels: '{{ $json }}'
+    labels: '{{ $json_e }}'
     
     };
 
     var data2 = {
     
     datasets: [{
-        data: '{{ $json4 }}',
+        data: '{{ $json4_e }}',
         backgroundColor: [
             "#71C3FE",
             "#D0FA96",
@@ -119,14 +119,14 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels:  '{{ $json3 }}'
+    labels:  '{{ $json3_e }}'
 
     };
 
     var data3 = {
     
     datasets: [{
-        data: '{{ $json6 }}',
+        data: '{{ $json6_e }}',
         backgroundColor: [
             "#71C3FE",
             "#D0FA96",
@@ -145,7 +145,7 @@ var data1 = {
     }],
 
     // These labels appear in the legend and in the tooltips when hovering different arcs
-    labels:  '{{ $json5 }}'
+    labels:  '{{ $json5_e }}'
     };
 
 var data4 = {
@@ -157,9 +157,9 @@ var data4 = {
         backgroundColor: "#25DD76",
         borderColor: "#25DD76",
         borderWidth: 1,
-        data: '{{ $json8 }}'
+        data: '{{ $json8_e }}'
     }],
-    labels: '{{ $json7}}'
+    labels: '{{ $json7_e }}'
     
 };
 

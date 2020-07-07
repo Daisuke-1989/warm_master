@@ -107,17 +107,18 @@ class SubjectsController extends Controller
 
             foreach($cntrys as $cntry){
                 // jsonに変換
-                // extract($cntry);
-                $json[] = $cntry->country;
-                $json2[] = $cntry->total;
+                // extract($cntrys);
+                $json[] = $cntry['country'];
+                $json2[] = $cntry['total'];
                 
                 $view .= '<tr>';
                 $view .= '<td>'.$cntry['country'].'</td>';
                 $view .= '<td>'.$cntry['total'].'</td>';
                 $view .= '</tr>';
             }
-        }
 
+        }
+       
         // 希望の留学先
         $dtns = Nation::join('s_n_maps', 'nations.id', '=', 's_n_maps.nations_id')
             ->join('students', 's_n_maps.students_id', '=', 'students.id')
@@ -152,15 +153,16 @@ class SubjectsController extends Controller
     
                 foreach($dtns as $dtn){
                     // jsonに変換
-                    // extract($cntry);
-                    $json3[] = $dtn->country;
-                    $json4[] = $dtn->total;
+                    // extract($dtns);
+                    $json3[] = $dtn['country'];
+                    $json4[] = $dtn['total'];
                     
                     $view_d .= '<tr>';
                     $view_d .= '<td>'.$dtn['country'].'</td>';
                     $view_d .= '<td>'.$dtn['total'].'</td>';
                     $view_d .= '</tr>';
                 }
+
             }
 
         // 留学のレベル
@@ -197,15 +199,16 @@ class SubjectsController extends Controller
     
                 foreach($lvls as $lvl){
                     // jsonに変換
-                    // extract($cntry);
-                    $json5[] = $lvl->level;
-                    $json6[] = $lvl->total;
+                    // extract($lvls);
+                    $json5[] = $lvl['level'];
+                    $json6[] = $lvl['total'];
                     
                     $view_l .= '<tr>';
                     $view_l .= '<td>'.$lvl['level'].'</td>';
                     $view_l .= '<td>'.$lvl['total'].'</td>';
                     $view_l .= '</tr>';
                 }
+              
             }
 
         // 科目
@@ -242,22 +245,33 @@ class SubjectsController extends Controller
         
                     foreach($sbjs as $sbj){
                         // jsonに変換
-                        // extract($cntry);
-                        $json7[] = $sbj->sbject;
-                        $json8[] = $sbj->total;
+                        // extract($sbjs);
+                        $json7[] = $sbj['subject'];
+                        $json8[] = $sbj['total'];
                         
                         $view_s .= '<tr>';
                         $view_s .= '<td>'.$sbj['subject'].'</td>';
                         $view_s .= '<td>'.$sbj['total'].'</td>';
                         $view_s .= '</tr>';
                     }
+                 
                 }
 
         // return view('insts.chart_each', ['events'=>$events, 'cntrys'=>$cntrys, 'dtns'=>$dtns, 'lvls'=>$lvls, 'sbjs'=>$sbjs]);
 
         // return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'sbjs'=>$sbjs, 'json'=>$json, 'json2'=>$json2, 'json3'=>$json3, 'json4'=>$json4, 'json5'=>$json5, 'json6'=>$json6, 'json7'=>$json7, 'json8'=>$json8]);
 
-        return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'sbjs'=>$sbjs, $json->toJson(), $json2->toJson(), $json3->toJson(), $json4->toJson(), $json5->toJson(), $json6->toJson(), $json7->toJson(), $json8->toJson()]);
+        $json_e = $json->toJson();
+        $json2_e = $json2->toJson();
+        $json3_e = $json3->toJson();
+        $json4_e = $json4->toJson();
+        $json5_e = $json5->toJson();
+        $json6_e = $json6->toJson();
+        $json7_e = $json7->toJson();
+        $json8_e = $json8->toJson();
+
+
+        return view('insts.chart_each', ['events'=>$events, 'view'=>$view, 'view_d'=>$view_d,'view_l'=>$view_l, 'sbjs'=>$sbjs, 'json_e'->$json_e, 'json2_e'->$json2_e, 'json3_e'->$json3_e, 'json4_e'->$json4_e, 'json5_e'->$json5_e, 'json6_e'->$json6_e, 'json7_e'->$json7_e, 'json8_e'->$json8_e]);
 
     }
 
