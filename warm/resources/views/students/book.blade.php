@@ -4,7 +4,7 @@
 @section('content')
 
 <div class="inner">
-    <h1 class="greet mb80">Hi {{--Auth::lastname()--}}, you are booking for</h1>
+    <h1 class="greet mb80">Hi {{$user->firstname}}, you are booking for</h1>
 </div>
 
 <div class="container">
@@ -29,20 +29,17 @@
     {{ csrf_field() }}
       <div class="row">
         <div class="input-field col s12">
-          <label>First Name</label>
-          <p class="validate">{{--ユーザー名前--}}</p>
+          <p>First Name : {{$user->firstname}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <label>Last Name</label>
-          <p class="validate">{{--ユーザー名前--}}</p>
+          <p>Last Name : {{$user->lastname}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <label>Email</label>
-          <p class="validate">{{--ユーザーemail--}}</p>
+          <p>Email : {{$user->email}}</p>
         </div>
       </div>
       <input type="hidden" name="event_id" value="{{$event->event_id}}">
