@@ -9,7 +9,9 @@
 </div>
 <div class="inner">
     <h1 class="greet">Welcome！</h1>
+
     <p class="greet">Hello, {{$user->firstname}} !</p> 
+
 </div>
 <div class="container">
     <h1 class="heading">Search</h1>
@@ -52,6 +54,7 @@
                 <button ><span class="btn-filter">Filter</span></button>
         </form>
     </div>
+
             @foreach ($events as $event)
             <div class="e_list">
             <div class="cont_l">
@@ -65,10 +68,12 @@
             </div>
             <div class="cont_r">
             <div>
+
             <img src="{{ $event->img}}" class="e_img_thumbnail" alt="">
             </div>
             <div>
             <a href="/events/{{ $event->id }}"><i class="fas fa-angle-right"></i></a>
+
             </div>
             </div>
             </div>

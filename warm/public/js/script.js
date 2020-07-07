@@ -16,6 +16,7 @@
     var instances = M.Timepicker.init(elems, options);
   });
 
+  
   const pList = document.querySelector("#p_list");
 
   pList.addEventListener("click", function(){
