@@ -14,6 +14,9 @@ use App\Nation;
 use App\Book;
 use App\Query;
 use App\Term;
+use App\E_l_map;
+use App\E_sbj_map;
+use App\E_r_map;
 use Validator;
 
 class InstsController extends Controller
@@ -104,41 +107,41 @@ class InstsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-        $file = $request->file('img');
+   public function store(Request $request){
+
+        // バリデーション
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'date' => 'required',
+            'starttime' => 'required',
+            'endtime' => 'required',
+            'detail' => 'required',
+            'upfile' => 'required',
+            'lvls' => 'required',
+            'sbjs' => 'required',
+            'rgns' => 'required',
+            'inst_id' => 'required',
+            'user_id' => 'required'
+        ]);
+    
+        //バリデーション:エラー 
+        if ($validator->fails()) {
+            return redirect('/insts/create')
+                ->withInput()
+                ->withErrors($validator);
+        }
+
+        $file = $request->file('upfile');
         // ファイルが空かチェック
         if(!empty($file)){
             // ファイル名を取得
             $filename = $file->getClientOriginalName();
-            $move = $file->store('../upload/'.$filename); //public/upload....
+            $move = $file->store('./upload/'.$filename); //public/upload....
             
         }else{
             $filename = "";
         }
 
-        // バリデーション
-        $validator = Validator::make($request->all(), [
-            'title' => 'required',
-            'inst_id' => 'required',
-            'date' => 'required',
-            'starttime' => 'required',
-            'endtime' => 'required',
-            'detail' => 'required',
-            'img' => 'required',
-            'user_id' => 'required',
-            'lvls' => 'required',
-            'sbjs' => 'required',
-            'rgns' => 'required'
-        ]);
-    
-        //バリデーション:エラー 
-        if ($validator->fails()) {
-            return redirect('/events/ceate')
-                ->withInput()
-                ->withErrors($validator);
-        }
         //イベント情報を登録
         $event = new Event();
 
@@ -153,7 +156,7 @@ class InstsController extends Controller
         $starttime3 = date('H:i:s', $starttime2);
         $event->start_time = $starttime3;
         $endtime1 = request('endtime');
-        $starttime2 = strtotime('$endtime1');
+        $endtime2 = strtotime('$endtime1');
         $endtime3 = date('H:i:s', $endtime2);
         $event->end_time = $endtime3;
         $event->dtls = request('detail');
@@ -169,7 +172,7 @@ class InstsController extends Controller
         //複数のレベル情報とイベントIDを、中間テーブルにループで登録
         foreach($request->lvls as $lvl){
             $level = new E_l_map();
-            $level->level_id = $lvl;
+            $level->levels_id = $lvl;
             $level->events_id = $event_id;
 
             $level->save();
@@ -178,7 +181,7 @@ class InstsController extends Controller
         //複数の科目情報とイベントIDを中間テーブルにループで登録
         foreach($request->sbjs as $sbj){
             $subject = new E_sbj_map();
-            $subject->sbjects_id = $sbj;
+            $subject->subjects_id = $sbj;
             $subject->events_id = $event_id;
 
             $subject->save();
@@ -193,7 +196,7 @@ class InstsController extends Controller
             $region->save();
         }
 
-        return redirect('/inst_users');
+        return redirect('/insts');
     }
 
     /**
@@ -288,6 +291,7 @@ class InstsController extends Controller
     public function edit($id)
     {
         //
+        
     }
 
     /**

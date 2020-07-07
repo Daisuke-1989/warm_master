@@ -78,6 +78,7 @@
                 <input class="file-path validate" type="text">
             </div>
         </div>
+        <p>{{ $inst->id }}</p>
        <!-- <div class="row">
            <input type="file" name="upfile">
        </div> -->

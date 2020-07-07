@@ -70,6 +70,7 @@ class EventsController extends Controller
     public function create()
     {
         
+
     }
 
     /**
@@ -80,7 +81,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-      
+        
     }
 
     /**
@@ -99,9 +100,9 @@ class EventsController extends Controller
                         ->join('levels','e_l_maps.levels_id','=','levels.id')
                         ->join('e_sbj_maps','events_id','=','e_sbj_maps.events_id')
                         ->join('subjects','e_sbj_maps.subjects_id','=','subject.id')
-                        ->where('id','=',$id)
+                        ->where('events.id','=',$id)
                         ->get();
-                        return view('detail', ['event' => $events]);
+                        return view('students.detail', ['event' => $events]);
 
     }
 
@@ -160,15 +161,40 @@ class EventsController extends Controller
         //イベント情報を登録
 
         // 直し必要
-        $event = Event::find($request->id);
+        $event = new Event();
 
         $event->dtls = request('detail');
         $event->img = $filename;
 
         $event->save();
 
-        return redirect('insts/{{ $event->id }}');
+        return redirect('/events/{{ $event->id }}/edit');
     }
+
+    public function inst_index($id){
+
+        // // session値が取れている場合
+        // $inst_id = $request->session()->get('inst_id');
+        // $inst = Inst::where('id', $inst_id)->get();
+        // $events = Event::where('insts_id', $inst_id)->get();
+
+        // session値が取れていない場合
+        // $user_id = Auth::user()->id->get();
+        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
+        // $inst = Inst::where('id', $inst_id)->get();
+
+        // $user = Auth::user();
+        
+        // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
+        //     ->where('events.insts_id', $id)
+        //     ->first();
+        // $events = Event::where('id', $id)->get();
+
+        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
+
+    }
+
+    
 
     /**
      * Remove the specified resource from storage.
