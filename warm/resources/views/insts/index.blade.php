@@ -3,10 +3,10 @@
 
 <div class="inner">
 <p class="greet_small">
-    Hello, {{ $inst_user->firstname }}！
+    Hello, {{ $user->firstname }}！
 </p>
 
-<a href="/inst_users/{{ $inst_user->id }}">
+<a href="/inst_users/{{ $user->id }}">
     <div class="link_box">
         <div class="link_box_l">
             <p class="link_box_heading">Manage Personal Account</p>
@@ -20,29 +20,31 @@
 
 <p class="heading_large">{{ $inst->inst_name }}</p>
 
+<p>{{$inst->id}}</p>
+
 <div class="link_box_flex">
     <div class="link_box_inner">
-        <a href="/events/create">
+        <a href="/insts/create">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Create Event</p>
                     <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
                 </div>
                 <div class="link_box_r">
-                    <a href="/events/create"><i class="fas fa-angle-right"></i></a>
+                    <a href="/insts/create"><i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </a>
         </div>
     <div class="link_box_inner">
-        <a href="/events/inst_user?id={{ $inst->id }}">
+        <a href="/insts">
             <div class="link_box">
                 <div class="link_box_l">
                     <p class="link_box_heading">Manage Event</p>
                     <p class="link_box_content">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna </p>
                 </div>
                 <div class="link_box_r">
-                    <a href="/events/inst_user?id={{ $inst->id }}"><i class="fas fa-angle-right"></i></a>
+                    <a href="/insts"><i class="fas fa-angle-right"></i></a>
                 </div>
             </div>
         </a>

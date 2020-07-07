@@ -5,7 +5,7 @@
 
   <h1 class="heading">Event Details</h1>
 
-  <a href="events/{{ $events->id }}/edit" class="e_edit"><i class="fas fa-chevron-circle-right"></i>Edit event details</a>
+  <a href="/events/{{ $events->id }}/edit" class="e_edit"><i class="fas fa-chevron-circle-right"></i>Edit event details</a>
 
   <div class="mb60">
         <div class="e_time">
@@ -46,10 +46,10 @@
     
   <div class="reg mb60">
       <h2 class="sub_heading">Participants</h2>
-      @if($regs->reg_num > 0)
-        <div class="mb20">You have {{ $regs->reg_num }} registerants for this event.</div>
+      @if($regs > 0)
+        <div class="mb20">You have {{ $regs }} registerants for this event.</div>
 
-          @if($regs->reg_num > 0)
+          @if($regs > 0)
           <div id="p_list" class="pointer mb20"><i class="fas fa-chevron-circle-right"></i>Participants list</div>
 
           <div class="reg_table" id="p_table">
@@ -75,7 +75,7 @@
             </table>
           </div>
 
-            <div class="pointer mb20"><i class="fas fa-chevron-circle-right"></i><a href="/chart_each?id={{ $events->id }}">Student statistics</a></div>
+            <div class="pointer mb20"><i class="fas fa-chevron-circle-right"></i><a href="/subjects/{{ $events->id }}">Student statistics</a></div>
 
           @endif
 
@@ -86,8 +86,8 @@
 
   <div class="reg mb80">
       <h2 class="sub_heading">Questions from students</h2>
-      @if($qrys->qry_num > 0)
-        <div class="mb20">You have {{ $qrys->qry_num }} questions sent from students.</div>
+      @if($qry_num > 0)
+        <div class="mb20">You have {{ $qry_num }} questions sent from students.</div>
 
         <div id="q_list" class="pointer mb20"><i class="fas fa-chevron-circle-right"></i>List of questions</div>
 
