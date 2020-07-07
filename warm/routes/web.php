@@ -76,4 +76,4 @@ Route::resource('s_sbj_maps', 'S_sbj_mapsController');
 
 Route::get('querys/{id}/create','QuerysController@info');
 Route::post('querys/set','QuerysController@set');
-Route::post('events/serch','EventsController@serch');
+Route::post('events/search','EventsController@search');

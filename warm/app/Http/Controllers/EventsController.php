@@ -186,7 +186,7 @@ class EventsController extends Controller
         //
     }
 
-    public function serch(Request $request)
+    public function search(Request $request)
     {
 
         $destination    = $request->input('dest');
