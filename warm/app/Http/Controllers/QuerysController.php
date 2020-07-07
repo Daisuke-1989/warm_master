@@ -28,7 +28,7 @@ class QuerysController extends Controller
      */
     public function create()
     {
-    //処理を書く
+    
 
     }
 

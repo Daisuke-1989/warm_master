@@ -3,16 +3,15 @@
 @extends('layouts.students.app')
 @section('content')
 
-
 <div class="inner">
 
-<h1 class="greet">{{A}}, you are asking a question about ...</h1>
+<h1 class="greet">{{$user->firstname}}, you are asking a question about ...</h1>
 
 </div>
 
 <div class="container">
 
-    <div class="heading"><?=$r["inst_name"]?></div>
+    <div class="heading">{{$event->inst_name}}</div>
 
     <div class="row">
     <form action="e_qry_insert.php" method="post" class="col s12">
@@ -34,10 +33,9 @@
         <label for="textarea1">What would you like to ask?</label>
         </div>
     </div>
-        <input type="hidden" name="e_id" value="{{大学id}}">
-        <input type="hidden" name="s_id" value="{{学生id}}">
+        <input type="hidden" name="e_id" value="{{$event->insts_id}}">
+        <input type="hidden" name="s_id" value="{{$user->student_id}}">
         <input type="submit" value="Send" class="btn-submit btn-filter">
     </form>
     </div>
 </div>
-@endsection('content')
