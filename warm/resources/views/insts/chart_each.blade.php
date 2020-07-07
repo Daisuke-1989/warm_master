@@ -6,7 +6,7 @@
 <h1 class="heading">Students Statistics</h1>
 
 <div class="mb60">
-<p class="sub_heading"><?= $r_event["e_title"]?> <span>on <?= $r_event["e_date"]?></span></p>
+<p class="sub_heading">{{ $events->title}} <span>on {{ $events->date }}</span></p>
 </div>
 
 <div class="mb80">
@@ -85,4 +85,14 @@
 
 </div>
 </div>
+<script>
+const c = @json($json);
+const c2 = @json($json2);
+const c3 = @json($json3);
+const c4 = @json($json4);
+const c5 = @json($json5);
+const c6 = @json($json6);
+const c7 = @json($json7);
+const c8 = @json($json8);
+</script>
 @endsection('content')
