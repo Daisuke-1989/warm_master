@@ -30,16 +30,12 @@
         </tr>
         <tr>
             <td class="text-right">Institution</td>
-            <td><?=$r["inst_name"]?></td>
-        </tr>
-        <tr>
-            <td class="text-right">Country</td>
-            <td><?=$r["icntry"]?></td>
+            <td>{{ $inst->inst_name }}</td>
         </tr>
     </table>
     </div>
     
-    <a href="i_user_updateview.php?id=<?= $r["iuser_id"]?>" class="btn-submit_i btn-filter">Edit</a>
+    <a href="/inst_users/{{ $user->id }}/edit" class="btn-submit_i btn-filter">Edit</a>
 
 </div>
 @endsection('content')
