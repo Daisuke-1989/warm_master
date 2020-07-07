@@ -70,7 +70,7 @@ class SubjectsController extends Controller
         // 当該イベントに予約した学生の統計
         
         // イベント情報の取得
-        $events = Event::find($id)->get();
+        $events = Event::find($id);
 
 
         // 学生の出身国

@@ -102,7 +102,7 @@ class EventsController extends Controller
                         ->join('subjects','e_sbj_maps.subjects_id','=','subject.id')
                         ->where('events.id','=',$id)
                         ->get();
-                        return view('students.detail', ['event' => $events]);
+                        return view('detail', ['event' => $events]);
 
     }
 
@@ -171,30 +171,6 @@ class EventsController extends Controller
         return redirect('/events/{{ $event->id }}/edit');
     }
 
-    public function inst_index($id){
-
-        // // session値が取れている場合
-        // $inst_id = $request->session()->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
-        // $events = Event::where('insts_id', $inst_id)->get();
-
-        // session値が取れていない場合
-        // $user_id = Auth::user()->id->get();
-        // $inst_id = Inst_user::where('id', $user_id)->get('inst_id');
-        // $inst = Inst::where('id', $inst_id)->get();
-
-        // $user = Auth::user();
-        
-        // $inst = Inst::join('events', 'insts.id', '=', 'events.insts_id')
-        //     ->where('events.insts_id', $id)
-        //     ->first();
-        // $events = Event::where('id', $id)->get();
-
-        // return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
-
-    }
-
-    
 
     /**
      * Remove the specified resource from storage.
