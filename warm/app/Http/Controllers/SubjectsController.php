@@ -171,7 +171,7 @@ class SubjectsController extends Controller
             ->where('books.CXL', '=', 0)
             ->groupBy('levels.level')
             ->select('levels.level', DB::raw('count(levels.level) as total'))
-            ->get;
+            ->get();
     
             // SQL文
             // $sql = "SELECT lvl.lvl, COUNT(lvl) as total
@@ -209,7 +209,7 @@ class SubjectsController extends Controller
             }
 
         // 科目
-        $sbjs = Subject::join('s_sbj_maps', 'subjects.id', '=', 's_l_maps.subjects_id')
+        $sbjs = Subject::join('s_sbj_maps', 'subjects.id', '=', 's_sbj_maps.subjects_id')
             ->join('students', 's_sbj_maps.students_id', '=', 'students.id')
             ->join('books', 'students.id', '=', 'books.students_id')
             ->where('books.events_id', '=', $id)
