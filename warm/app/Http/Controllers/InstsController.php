@@ -266,10 +266,10 @@ class InstsController extends Controller
             // FROM e_qry WHERE e_qry_e_id = :id";
 
         //、質問タイプと内容
-        $qrys = Term::join('queries', 'terms.id', '=', 'queries.terms_id')
-            ->where('queries.events_id', $id)
+        $qrys = Term::join('querys', 'terms.id', '=', 'querys.terms_id')
+            ->where('querys.events_id', $id)
             ->orderBy('terms.id')
-            ->select('terms.term', 'queries.dtls')
+            ->select('terms.term', 'querys.dtls')
             ->get();
 
             //質問タイプと内容sql

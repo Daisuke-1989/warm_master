@@ -24,22 +24,22 @@
             <p class="event-description">{{ $events->dtls }}</p>
           </div>
           <div class="e_imgLarger">
-            <img src="{{ asset('storage/img/' .$event->img) }}" class="event_img" alt="">
+            <img src="{{ asset('storage/img/' .$events->img) }}" class="event_img" alt="">
           </div>
         </div>
         <div class="e_infoSmaller">Level:
           @foreach($levels as $level)
-            <span>{{ $level }} </span>
+            <span>{{ $level["level"] }} </span>
           @endforeach
         </div>
         <div class="e_infoSmaller">Subject areas:
           @foreach($subjects as $subject)
-            <span>{{ $subject }} </span>
+            <span>{{ $subject["subject"] }} </span>
           @endforeach
         </div>
         <div class="e_infoSmaller">Suitable for students from
           @foreach($regions as $region)
-            <span>{{ $region }}</span> region.
+            <span>{{ $region["region"] }}</span> region.
           @endforeach
         </div>
   </div>
