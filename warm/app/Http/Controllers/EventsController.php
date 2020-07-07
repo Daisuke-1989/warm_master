@@ -17,7 +17,9 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
+use App\Student;
 use Validator;
+
 
 
 class EventsController extends Controller
@@ -34,33 +36,30 @@ class EventsController extends Controller
     // }
 
     public function index()
-{       
-        $user = auth()->user();
-        $id = $user->id;
-        // $user_id    =   Auth::user()->id->get();
-        // $student    =   Student::where('id', $id)->get();
-        // $student    =   Student::find($id);
-        $nations     =   Nation::all();
-        $levels     =    Level::all();
 
-        $events      =   Event::join('insts','events.insts_id','=','insts.id')
-                        // ->join('nations', 'insts.nations_id', '=', 'nations.id')
-                        ->join('e_r_maps','events.id','=','e_r_maps.events_id')
-                        ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
-                        ->join('e_l_maps','events.id','=','e_l_maps.events_id')
-                        ->join('levels','e_l_maps.levels_id','=','levels.id')
-                        ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
-                        ->get();
-        
-        return view('students.index',[
-                    'user'      =>$user,
-                    // 'student'   =>$student,
-                    'events'     =>$events,
-                    'nations'    =>$nations,
-                    'levels'    =>$levels
-                    ]);
-        
-    }
+    {       
+            $user = auth()->user();
+            $id = $user->id;
+            $nations     =   Nation::all();
+            $levels     =    Level::all();
+
+            $events      =   Event::join('insts','events.insts_id','=','insts.id')
+                            ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                            ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                            ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                            ->join('levels','e_l_maps.levels_id','=','levels.id')
+                            ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                            ->get();
+            
+            return view('students.index',[
+                        'user'      =>$user,
+                        'events'     =>$events,
+                        'nations'    =>$nations,
+                        'levels'    =>$levels
+                        ]);
+            
+        }
+
 
     /**
      * Show the form for creating a new resource.
@@ -93,16 +92,21 @@ class EventsController extends Controller
     public function show($id)
     {
 
-        $event  =Event::join('insts','events.insts_id','=','insts.id')
-                        ->join('e_r_maps','events.id','=','e_r_maps.events_id')
-                        ->join('nations','e_r_maps.regions_id','rgn_id')
-                        ->join('e_l_maps','events.id','=','e_l_maps.events_id')
-                        ->join('levels','e_l_maps.levels_id','=','levels.id')
-                        ->join('e_sbj_maps','events_id','=','e_sbj_maps.events_id')
-                        ->join('subjects','e_sbj_maps.subjects_id','=','subject.id')
-                        ->where('events.id','=',$id)
-                        ->get();
-                        return view('detail', ['event' => $events]);
+        $user = auth()->user();
+        //  $id = $user->id;
+
+        $events  =   Event::join('insts','events.insts_id','=','insts.id')
+                    ->join('e_r_maps','events.id','=','e_r_maps.events_id')
+                    ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
+                    ->join('e_l_maps','events.id','=','e_l_maps.events_id')
+                    ->join('levels','e_l_maps.levels_id','=','levels.id')
+                    ->join('e_sbj_maps','events.id','=','e_sbj_maps.events_id')
+                    ->join('subjects','e_sbj_maps.subjects_id','=','subjects.id')
+                    ->where('events.id','=',$id)
+                    ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.dtls','events.img','insts.inst_name','nations.country','levels.level','subjects.subject','nations.region')
+                    ->first();
+        return view('students.detail', ['event'=>$events]);
+
 
     }
 

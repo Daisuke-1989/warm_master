@@ -8,7 +8,9 @@ use Auth;
 use App\Event;
 use App\Nation;
 use App\Level;
-
+use App\Book;
+use App\Student;
+use App\Inst;
 
 class StudentsController extends Controller
 {
@@ -354,18 +356,19 @@ class StudentsController extends Controller
 
     public function index()
     {
-        $user_id    =   Auth::user()->id->get();
-        $student    =   Student::where('id', $user_id)->get();
-        $student_id = $student->id;
+        $user = auth()->user();
+        $id = $user->id;
         
-        $book      =   Book::join('events','book.events_id','=','events.id')
-                        ->join('insts','events.insts_id','=','insts.id')
-                        ->where('id','=',$student_id)
-                        ->get();
+        $book  =Book::join('events','books.events_id','=','events.id')
+                    ->join('insts','events.insts_id','=','insts.id')
+                    ->where('books.students_id','=',$id)
+                    ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.img','insts.inst_name') 
+                    ->get();
         
         
         return view('students.user',[
-                    'book'=>$book
+                    'books'=>$book,
+                    'user'=>$user,
                     ]);
     }
 
