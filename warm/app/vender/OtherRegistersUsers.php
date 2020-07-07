@@ -2,6 +2,10 @@
 
 namespace App\vender;
 
+use App\Event;
+use App\Inst;
+use App\Inst_user;
+use App\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\RedirectsUsers;
@@ -32,30 +36,33 @@ trait OtherRegistersUsers
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function instUserRegister(Request $request)
+    public function instUserRegister(Request $request, Inst_user $inst_user)
     {
         $this->instUserValidator($request->all())->validate();
 
         event(new Registered($user = $this->instUserCreate($request->all())));
 
+        $id = $user->id;
+        $this->instUserTableValidator($request->all())->validate();
+        $this->instUserTableCreate($id, $request->all(), $inst_user);
+
         $this->guard()->login($user);
 
-        return $this->instUserRegistered($request, $user)
+        return $this->instUserRegistered($user)
                         ?: redirect($this->redirectPath());
     }
 
-    public function studentRegister(Request $request)
+    public function studentRegister(Request $request, Student $student)
     {
         $this->studentValidator($request->all())->validate();
 
         event(new Registered($user = $this->studentCreate($request->all())));
 
         $id = $user->id;
-        $this->studentTableValidator($id, $request->all())->validate();
-        $this->studentTableCreate($id, $request->all());
+        $this->studentTableValidator($request->all())->validate();
+        $this->studentTableCreate($id, $request->all(), $student);
 
         $this->guard()->login($user);
-
 
         return $this->studentRegistered($request, $user)
                         ?: redirect($this->redirectPath());
@@ -78,13 +85,24 @@ trait OtherRegistersUsers
      * @param  mixed  $user
      * @return mixed
      */
-    protected function instUserRegistered(Request $request, $user)
+    protected function instUserRegistered($user)
     {
         //
+        $user = auth()->user();
+        $id = $user->id;
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $id)
+            ->select('insts.inst_name', 'insts.id')
+            ->first();
+        $inst_id = $inst->id;
+        $events = Event::where('insts_id', $inst_id)->get();
+
+        return view('insts.list', ['events'=>$events, 'inst'=>$inst]);
     }
 
     protected function studentRegistered(Request $request, $user)
     {
         //
+        return view('students.index',compact('nations','levels','events'));
     }
 }

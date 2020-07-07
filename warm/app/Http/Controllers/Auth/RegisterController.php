@@ -128,7 +128,6 @@ class RegisterController extends Controller
     protected function instUserTableValidator(array $data)
     {
         return Validator::make($data, [
-            'id' => ['required', 'integer'],
             'inst_id' => ['required', 'integer'],
             'j_title' => ['required', 'string'],
             'dept' => ['required', 'string'],
@@ -138,7 +137,6 @@ class RegisterController extends Controller
     protected function studentTableValidator(array $data)
     {
         return Validator::make($data, [
-            'id' => ['required', 'integer'],
             'nations_id' => ['required', 'integer'],
             'year' => ['required', 'string'],
         ]);
@@ -146,19 +144,16 @@ class RegisterController extends Controller
 
     protected function instUserTableCreate(Int $id, array $data, Inst_user $inst_user)
     {
-        $inst_user->id = $id;
-        $inst_user->inst_id = $data->inst_id;
-        $inst_user->j_title = $data->j_title;
-        $inst_user->dept = $data->dept;
+        $inst_user = new Inst_user();
+        $inst_user->fill(['id'=>$id,'inst_id'=>$data['inst_id'],'j_title'=>$data['j_title'],'dept'=>$data['dept']]);
         $inst_user->save();
         return;
     }
 
     protected function studentTableCreate(Int $id, array $data, Student $student)
     {
-        $student->id = $id;
-        $student->nations_id = $data->nations_id;
-        $student->year = $data->year;
+        $student = new Student();
+        $student->fill(['id'=>$id,'nations_id'=>$data['nations_id'],'year'=>$data['year']]);
         $student->save();
         return;
     }

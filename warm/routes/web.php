@@ -17,11 +17,20 @@ Route::get('/', function () {
 
 Route::get('inistUserRegister', 'Auth\RegisterController@showInstUserRegistrationForm');
 
-Route::post('inistUserRegister', 'Auth\RegisterController@instUserRegister');
+Route::post('inistUserRegister', 'Auth\RegisterController@instUserRegister')->name('inistUserRegister');
+
+Route::get('inistUserLogin', 'Auth\LoginController@instUserShowLoginForm');
+
+Route::post('inistUserLogin', 'Auth\LoginController@instUserLogin')->name('inistUserLogin');
+
 
 Route::get('studentRegister', 'Auth\RegisterController@showStudentRegistrationForm');
 
-Route::post('studentRegister', 'Auth\RegisterController@studentRegister');
+Route::post('studentRegister', 'Auth\RegisterController@studentRegister')->name('studentRegister');
+
+Route::get('studentLogin', 'Auth\LoginController@studentShowLoginForm');
+
+Route::post('studentLogin', 'Auth\LoginController@studentLogin')->name('istudentLogin');
 
 Auth::routes();
 
