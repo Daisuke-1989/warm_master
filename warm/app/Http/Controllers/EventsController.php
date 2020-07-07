@@ -17,7 +17,6 @@ use App\E_r_map;
 use App\E_sbj_map;
 use App\Book;
 use App\Query;
-use App\Student;
 use Validator;
 
 
@@ -37,7 +36,7 @@ class EventsController extends Controller
 
     public function index()
 
-    {       
+    {
             $user = auth()->user();
             $id = $user->id;
             $nations     =   Nation::all();
@@ -50,14 +49,14 @@ class EventsController extends Controller
                             ->join('levels','e_l_maps.levels_id','=','levels.id')
                             ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
                             ->get();
-            
+
             return view('students.index',[
                         'user'      =>$user,
                         'events'     =>$events,
                         'nations'    =>$nations,
                         'levels'    =>$levels
                         ]);
-            
+
         }
 
 
@@ -68,7 +67,7 @@ class EventsController extends Controller
      */
     public function create()
     {
-        
+
 
     }
 
@@ -80,7 +79,7 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
     }
 
     /**
@@ -140,7 +139,7 @@ class EventsController extends Controller
             // ファイル名を取得
             $filename = $file->getClientOriginalName();
             $move = $file->store('../upload/'.$filename); //public/upload....
-            
+
         }else{
             $filename = "";
         }
@@ -155,8 +154,8 @@ class EventsController extends Controller
             'dtls' => 'required',
             'img' => 'required',
         ]);
-    
-        //バリデーション:エラー 
+
+        //バリデーション:エラー
         if ($validator->fails()) {
             return redirect('/events/{{ $event->id }}/edit')
                 ->withInput()
