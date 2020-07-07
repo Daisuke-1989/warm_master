@@ -4,18 +4,18 @@
 @section('content')
 
 <div class="inner">
-    <h1 class="greet mb80">Hi {{Auth::lastname()}}, you are booking for</h1>
+    <h1 class="greet mb80">Hi {{--Auth::lastname()--}}, you are booking for</h1>
 </div>
 
 <div class="container">
   <div class="rsv_box mb60">
     <div class="rsv_cont">
       <div>
-        <span class="e-date">{{$event->date}}</span>    
+        <span class="e-date">{{ $event->date }}</span>    
         <span class="event-time">{{$event->start_time}} - </span> 
         <span class="event-time">{{$event->end_time}}</span> 
       </div>
-      <p class="e_inst">{{$event->inst_name(大学名)}}</p>
+      <p class="e_inst">{{$event->inst_name}}</p>
       <p class="e_title">{{$event->title}}</p>
     </div>
     <div class="rsv_img">
@@ -25,29 +25,29 @@
 
   <div class="row">
 
-    <form action="{{url('books')}}" method="post" class="col s12">
+    <form action="{{ route('books.store') }}" method="POST" class="col s12">
     {{ csrf_field() }}
       <div class="row">
         <div class="input-field col s12">
           <label>First Name</label>
-          <p class="validate">{{ユーザー名前}}</p>
+          <p class="validate">{{--ユーザー名前--}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <label>Last Name</label>
-          <p class="validate">{{ユーザー名前}}</p>
+          <p class="validate">{{--ユーザー名前--}}</p>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s12">
           <label>Email</label>
-          <p class="validate">{{ユーザーemail}}</p>
+          <p class="validate">{{--ユーザーemail--}}</p>
         </div>
       </div>
-      <input type="hidden" name="event_id" value="{{$event->id}">
+      <input type="hidden" name="event_id" value="{{$event->event_id}}">
       <input type="submit" value="Confirm" class="btn-submit btn-filter">
-
+      
     </form>
 
   </div>
