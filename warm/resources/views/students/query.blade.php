@@ -14,14 +14,14 @@
     <div class="heading">{{$event->inst_name}}</div>
 
     <div class="row">
-    <form action="e_qry_insert.php" method="post" class="col s12">
-
+    <form action="query.store" method="post" class="col s12">
+    {{ csrf_field() }}
     <div class="row">
         <div class="input-field col s12">
             <select name="category" id="">
             <option value="" disabled selected>Select category</option>
-            @foreach($terms as $term)
-            <option value="{{$term->term_id}}">{{$term->term}}</option>
+            @foreach($subjects as $subject)
+            <option value="{{$term->term_id}}">{{$subjects->subject}}</option>
             @endforeach
             </select>
             <label for="category">Select category</label>
@@ -39,3 +39,4 @@
     </form>
     </div>
 </div>
+@endsection('content')

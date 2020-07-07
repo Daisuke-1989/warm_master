@@ -26,9 +26,20 @@ class QuerysController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        $user = auth()->user();
+
+        $events = Event::join('insts','events.insts_id','=','inst_id')
+                    ->where('events.id','=',$id)
+                    ->select('events.id as event_id','insts.inst_name')
+                    ->first();
     
+
+        return view('students.query',[
+                                'event'=>$events,
+                                'user'=>$user
+                                ]);
 
     }
 
