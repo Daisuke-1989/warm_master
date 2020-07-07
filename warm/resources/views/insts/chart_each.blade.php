@@ -20,7 +20,7 @@
                         <th>Country</th>
                         <th>Number</th>
                     </tr>
-                        <?=$view?>
+                        {{ $view }}
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -39,7 +39,7 @@
                         <th>Destination</th>
                         <th>Number</th>
                     </tr>
-                        <?=$view_ic?>
+                        {{ $view_d }}
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -57,7 +57,7 @@
                         <th>Level</th>
                         <th>Number</th>
                     </tr>
-                        <?=$view_l?>
+                        {{ $view_l }}
                 </table>
             </div>
             <div class="pie-chart-container chart">
@@ -75,7 +75,7 @@
                         <th>Sbject area</th>
                         <th>Number</th>
                     </tr>
-                        <?=$view_s?>
+                        {{ $view_s }}
                 </table>
             </div><div class="pie-chart-container1 chart">
                 <canvas id="myChart4" width="800px" height="800px"></canvas>

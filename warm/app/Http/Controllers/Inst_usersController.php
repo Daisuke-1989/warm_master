@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use App\User;
 use App\Inst;
 use App\Inst_user;
 
@@ -20,15 +21,25 @@ class Inst_usersController extends Controller
      */
     public function index()
     {
+        // // sessionに値を保存する
+        // $firstname = Auth::user()->firstname->get();
+        // $request->session()->put('name', $firstname);
+
         //Authからidをゲットして大学ユーザーの名前を表示
-        $id = Auth::user()->id->get();
-        $inst_user = User::find($id);
+
+        $user = auth()->user();
+        $id = $user->id;
+        // $id = Auth::user()->id->get();
+        // $inst_user = User::find($id)->get();
 
         //instテーブルのidと大学ユーザーテーブルの大学idと合致するレコードを探して、$instに代入する。
-        $inst = Inst::where('id', $inst_user->inst_id)->get();
+        $inst = Inst::join('inst_users', 'insts.id', '=', 'inst_users.inst_id')
+            ->where('inst_users.id', $id)
+            ->select('insts.id', 'insts.inst_name')
+            ->first();
 
         // view'dashboard'で、{{ $inst_user->firstname }}で大学ユーザーの名前を,{{ $inst->inst_name }}で大学名を呼び出し
-        return view('inst.dashboard', ['inst_user'=>$inst_user, 'inst'=>$inst]);
+        return view('insts.index', ['user'=>$user, 'inst'=>$inst]);
     }
 
     /**
@@ -61,11 +72,11 @@ class Inst_usersController extends Controller
     public function show($id)
     {
         //大学ユーザー情報を表示
-        $user = User::find($id)->get();
-        $inst_user = Inst_user::find($id)->get();
+        $user = User::find($id);
+        $inst_user = Inst_user::find($id);
         //大学情報を表示
-        $inst_id = $inst_user['inst_id'];
-        $inst = Inst::find($inst_id)->get();
+        $inst_id = $inst_user->inst_id;
+        $inst = Inst::find($inst_id);
 
         return view('insts.user', ['user'=>$user, 'inst_user'=>$inst_user, 'inst'=>$inst]);
     }
@@ -80,9 +91,9 @@ class Inst_usersController extends Controller
     {
         //大学ユーザー情報を編集ページに表示
         // formのvalueに、{{ $inst_user->first_name }}などを含む
-        $user = User::find($id)->get();
-        $inst_user = Inst_user::find($id)->get();
-        return view('inst.edit', ['user'=>$user, 'inst_user'=>$inst_user]);
+        $user = User::find($id);
+        $inst_user = Inst_user::find($id);
+        return view('insts.user_edit', ['user'=>$user, 'inst_user'=>$inst_user]);
     }
 
     /**
@@ -100,8 +111,8 @@ class Inst_usersController extends Controller
             'id' => 'required',
             'firstname' => 'required',
             'lastname' => 'required',
-            'pw' => 'required|min:1|max:6',
-            'published' => 'required|date_format:"Y-m-d H:i:s"',
+            'jobtitle' => 'required',
+            'department' => 'required'
         ]);
     
         //バリデーション:エラー 
@@ -112,14 +123,18 @@ class Inst_usersController extends Controller
         }
         //以下に登録処理を記述（Eloquentモデル）
         // Eloquent モデル
-        $books = Book::where('user_id', Auth::user()->id)
-            ->find($request->id);
-        $books->item_name = $request->item_name;
-        $books->item_number = $request->item_number;
-        $books->item_amount = $request->item_amount;
-        $books->published = $request->published;
-        $books->save(); 
-        return redirect('/');
+        $user = User::find($request->id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email = $request->email;
+        $user->save(); 
+       
+        $inst_user = Inst_user::find($request->id);
+        $inst_user->j_title = $request->jobtitle;
+        $inst_user->dept = $request->department;
+        $inst_user->save(); 
+
+        return redirect('/inst_users');
     }
 
     /**

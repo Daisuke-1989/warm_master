@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Event;
+use App\Book;
+use App\Student;
 
 class BooksController extends Controller
 {
@@ -12,10 +15,10 @@ class BooksController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    //  public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function index()
     {
@@ -40,7 +43,13 @@ class BooksController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //バリデーションはいらない（ユーザーが入力する項目がないので)
+        $books = new Book;
+        $books->events_id   =  $request->input('event_id');
+        $books->students_id =   1; //Auth::user()->id
+        $books->CXL         =   0;
+        $books->save();    
+        return redirect('/students');
     }
 
     /**
@@ -51,7 +60,20 @@ class BooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = auth()->user();
+        
+
+        $events =Event::join('insts','events.insts_id','=','insts.id')
+                        ->where('events.id','=',$id)
+                        ->select('events.id as event_id','events.date','events.start_time','events.end_time','events.title','events.img','insts.inst_name') 
+                        ->first();
+        return view('students.book', [
+                    'event' => $events,
+                    'user'=>$user,
+                    ]);
+
+        
+
     }
 
     /**

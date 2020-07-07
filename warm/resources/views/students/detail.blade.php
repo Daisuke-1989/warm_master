@@ -17,7 +17,7 @@
         </div>
         <div class="e_detail">
           <div class="e_cont">
-          <p class="univ-name">{{大学名}}, <span>{{大学の国}}</span></p>
+          <p class="univ-name">{{$event->inst_name}}, <span>{{$event->country}}</span></p>
           <p class="event-title">{{$event->title}}</p>
           <p class="event-description">{{$event->dtls}}</p>
           </div>
@@ -25,12 +25,14 @@
             <img src="{{$event->img}}" class="event_img" alt="">
           </div>
         </div>
-          <div class="e_infoLarger">Level: <span>{{レベル}}</span></div> 
-          <div class="e_infoLarger">Subject areas: <span>{{サブジェクト}}</span></div>
-          <div class="e_infoLarger">Suitable for students from <span>{{地域}}</span> region.</div>
+          <div class="e_infoLarger">Level: <span>{{$event->level}}</span></div> 
+          <div class="e_infoLarger">Subject areas: <span>{{$event->subject}}</span></div>
+          <div class="e_infoLarger">Suitable for students from <span>{{$event->region}}</span> region.</div>
 
-    <a href="books" class="e_book">Book</a>
+    <a href="{{url('books/'.$event->event_id)}}" class="e_book">Book</a>
 
 </div>
 
 @endsection('content')
+
+

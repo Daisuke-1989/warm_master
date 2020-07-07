@@ -7,8 +7,8 @@
 
     <div class="row">
 
-    <form action="i_user_update.php" method="post" class="col s12">
-
+    <form action="/inst_users/{{ $user->id }}" method="post" class="col s12">
+    @csrf
     <div class="row">
         <div class="input-field col s6">
             <label for="firstname"></label>
@@ -21,30 +21,30 @@
     </div>
 
     <div class="row">
-        <div class="input-field col s6">
+        <div class="input-field col s12">
             <label for="email"></label>
             <input type="email" name="email" value="{{ $user->email }}">
         </div>
-        <div class="input-field col s6">
+        <!-- <div class="input-field col s6">
             <label for="password"></label>
             <input type="password" name="password" value="{{ $user->password }}">
-        </div>
+        </div> -->
     </div>
     <div class="row">
         <div class="input-field col s6">
             <label for="jobtitle"></label>
-            <input type="text" name="jobtitle" value="{{ $isnt_user->j_title }}">
+            <input type="text" name="jobtitle" value="{{ $inst_user->j_title }}">
         </div>
         <div class="input-field col s6">
             <label for="department"></label>
-            <input type="text" name="department" value="{{ $isnt_user->dept }}">
+            <input type="text" name="department" value="{{ $inst_user->dept }}">
         </div>
     </div>
-        <input type="hidden" name="iuser_id" value="{{ $user->id }}">
         <input type="submit" value="Save" class="btn-submit_i btn-filter">
     </form>
 
     </div>
     
 </div>
+
 @endsection('content')
