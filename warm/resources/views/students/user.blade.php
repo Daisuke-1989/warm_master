@@ -28,8 +28,8 @@
         </div>
         <div class="rsv_img">
             <img src="{{$book->img}}" alt="" class="rsv_img_size">
-        <div>
-    </div>
+        </div>
+    </・div>
 @endforeach
 
 </div>
