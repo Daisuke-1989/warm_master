@@ -47,9 +47,53 @@ class EventsController extends Controller
                             ->join('nations','e_r_maps.regions_id', '=', 'nations.rgn_id')
                             ->join('e_l_maps','events.id','=','e_l_maps.events_id')
                             ->join('levels','e_l_maps.levels_id','=','levels.id')
-                            ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
+                            ->join('e_sbj_maps','events.id','=','e_sbj_maps.events_id')
+                            ->join('subjects','e_sbj_maps.subjects_id','=','subjects.id')
+                            ->select('events.id', 'events.title', 'events.img', 'insts.inst_name', 'nations.region', 'events.date', 'levels.level', 'subjects.subject')
                             ->get();
-
+            $eventsArr = [];
+            $regionsArr = [];
+            $levelsArr = [];
+            $subjectsArr = [];
+            foreach ($events as $event) {
+                $searchResult = in_array($event->id,array_column($eventsArr, 'id'));
+                if ($searchResult == false) {
+                    $eventsArr[] = array(
+                        'id'        =>  $event->id,
+                        'title'     =>  $event->title,
+                        'img'       =>  $event->img,
+                        'inst_name' =>  $event->inst_name,
+                        'region'    =>  array($event->region),
+                        'date'      =>  $event->date,
+                        'level'     =>  array($event->level),
+                        'subject'   =>  array($event->subject),
+                    );
+                    $regionsArr[$event->id] = array(0=>$event->region);
+                    $levelsArr[$event->id] = array(0=>$event->level);
+                    $subjectsArr[$event->id] = array(0=>$event->subject);
+                }else {
+                    $searchID = array_search($event->id,array_column($eventsArr, 'id'));
+                    $regionsResult = in_array($event->region, (array)$regionsArr[$event->id]);
+                    if ($regionsResult == false) {
+                        $rCount = count($eventsArr[$searchID]['region']);
+                        $eventsArr = array_replace_recursive($eventsArr, array($searchID=>array('region'=>array($rCount=>$event->region))));
+                        $regionsArr = array_replace_recursive($regionsArr, array($event->id=>array($rCount=>$event->region)));
+                    }
+                    $levelsResult = in_array($event->level, (array)$levelsArr[$event->id]);
+                    if ($levelsResult == false) {
+                        $lCount = count($eventsArr[$searchID]['level']);
+                        $eventsArr = array_replace_recursive($eventsArr, array($searchID=>array('level'=>array($lCount=>$event->level))));
+                        $levelsArr = array_replace_recursive($levelsArr, array($event->id=>array($lCount=>$event->level)));
+                    }
+                    $subjectsResult = in_array($event->subject, (array)$subjectsArr[$event->id]);
+                    if ($subjectsResult == false) {
+                        $sCount = count($eventsArr[$searchID]['subject']);
+                        $eventsArr = array_replace_recursive($eventsArr, array($searchID=>array('subject'=>array($sCount=>$event->subject))));
+                        $subjectsArr = array_replace_recursive($subjectsArr, array($event->id=>array($sCount=>$event->subject)));
+                    }
+                }
+            }
+            dd($eventsArr);
             return view('students.index',[
                         'user'      =>$user,
                         'events'     =>$events,
@@ -279,11 +323,7 @@ class EventsController extends Controller
                     ->get();
                 }
             }
-            
-            
-            
-            
-            
+
             // elseif(!isset($destination) and isset($region) and !isset($level) ){
             //     $events=Event::join('insts','events.insts_id','=','insts.id')
             //                 ->join('e_r_maps','events.id','=','e_r_maps.events_id')
@@ -303,10 +343,6 @@ class EventsController extends Controller
             //                 ->select('insts.inst_name', 'nations.region', 'events.title', 'events.date', 'events.id', 'events.img', 'levels.level' )
             //                 ->get();
             // }
-
-
-            
-
 
 
             return view('students.index',[
